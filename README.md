@@ -24,7 +24,7 @@ As a user, I want to...
 
 ## Wireframes
 
-Wireframes go here...
+![Wireframes for My Flower Garden](public/images/wireframes/wireframe.png)
 
 ## ERD Diagram
 
