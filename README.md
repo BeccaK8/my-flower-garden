@@ -28,7 +28,7 @@ Wireframes go here...
 
 ## ERD Diagram
 
-![ERD for My Flower Garden](public/images/ERD.png)
+![ERD for My Flower Garden](public/images/ERDv2.png)
 
 ## Technologies Used
 - EJS
