@@ -28,7 +28,7 @@ As a user, I want to...
 
 ## ERD Diagram
 
-![ERD for My Flower Garden](public/images/ERDv2.png)
+![ERD for My Flower Garden](public/images/ERDv3.png)
 
 ## Technologies Used
 - JavaScript
@@ -44,6 +44,7 @@ font-family: Arial, Helvetica, sans-serif;
 
 ## Next Steps
 As a user, I want to...
+  - show an appropriate home page to someone who's not logged in.
   - see a shopping list of all the flowers in my garden.
   - search for a flower from the plant API by cycle (e.g., annual, perennial, etc.).
   - divide my garden into sections to better group locations.
