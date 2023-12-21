@@ -1,7 +1,7 @@
 # My Flower Garden
 
 ## Overview
-My Flower Garden will help a user track the different flowers they plan on planting in the different areas of their yard or garden.  It will let you organize by location and container. It will also access a Plants API from https://perenual.com/ to search for plants or flowers and see some fun facts on those plants
+My Flower Garden will help a user plan and manage the different flowers they plan on planting in the different areas of their yard or garden.  It will let you organize by location and container. It will also access a Plants API from https://perenual.com/ to search for plants or flowers and see some fun facts on those plants.
 
 ## User Stories
 As a user, I want to...
@@ -19,8 +19,8 @@ As a user, I want to...
   - set a quantity for my containers so I don't need to create four containers for all my tomato pots.
   - search for a flower from the plant API by partial name.
   - associate a flower to a container with the preferred packaging and quantity.
-  - delete a flower from a container
-  - associate multiple types of flower to the same container (e.g, impatiens and spike)
+  - delete a flower from a container.
+  - associate multiple types of flower to the same container (e.g, petunias and spike).
 
 ## Wireframes
 
@@ -31,11 +31,11 @@ As a user, I want to...
 ![ERD for My Flower Garden](public/images/ERDv2.png)
 
 ## Technologies Used
-- EJS
+- JavaScript
 - Node.js
 - Express
+- EJS
 - CSS3
-- JavaScript
 
 ##### Font
 ```css
