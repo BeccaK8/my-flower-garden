@@ -88,6 +88,20 @@ router.post('/login', (req, res) => {
         });
 });
 
+// GET -> logout -> /users/logout
+router.get('/logout', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+    res.render('users/logout', { username, loggedIn, userId });
+});
+
+// DELETE -> logout -> /users/logout
+router.delete('/logout', (req, res) => {
+    // Destroy user session
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
+});
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/
