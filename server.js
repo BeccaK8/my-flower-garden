@@ -9,6 +9,7 @@ const middleware = require('./utils/middleware');
 /*******************************************/
 /*****          Import Routers         *****/
 /*******************************************/
+const UserRouter = require('./controllers/userControllers');
 
 /*******************************************/
 /***** Create app + set up view engine *****/
@@ -32,6 +33,17 @@ app.get('/', (req, res) => {
     const { username, loggedIn, userId } = req.session;
     //res.send('the app is connected');
     res.render('home', { username, loggedIn, userId });
+});
+
+// Register Routes
+app.use('/users', UserRouter);
+
+// error page
+app.get('/error', (req, res) => {
+    const error = req.query.error || 'Oops! Something went wrong. Please try again.';
+    const { username, loggedIn, userId } = req.session;
+    //res.send(error);
+    res.render('error', { error, username, loggedIn, userId });
 });
 
 /*******************************************/
