@@ -4,6 +4,7 @@
 const express = require('express');
 require('dotenv').config();
 const path = require('path');
+const middleware = require('./utils/middleware');
 
 /*******************************************/
 /*****          Import Routers         *****/
@@ -21,7 +22,7 @@ app.set('view engine', 'ejs');
 /*******************************************/
 /*****           Middleware            *****/
 /*******************************************/
-
+middleware(app);
 
 /*******************************************/
 /*****              Routes             *****/
