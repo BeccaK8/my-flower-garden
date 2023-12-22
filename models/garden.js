@@ -11,6 +11,7 @@ const { Schema, model } = mongoose;
 const GardenSchema = new Schema({
     name: { type: String, required: true },
     desc: { type: String },
+    icon: { type: String },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',

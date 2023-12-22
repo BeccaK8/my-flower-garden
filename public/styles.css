@@ -5,3 +5,28 @@ body {
 .garden-card {
     width: 45%;
 }
+
+.garden-icon {
+    width: 20%;
+}
+
+.garden-icon-radio {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.garden-icon-form {
+    width: 100%;
+}
+
+.garden-icon-radio + img {
+    cursor: pointer;
+}
+
+.garden-icon-radio:checked + img {
+    border: 2px solid black;
+    border-radius: 10%;
+    padding: 5px;
+}

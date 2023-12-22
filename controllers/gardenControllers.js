@@ -41,6 +41,7 @@ router.post('/', (req, res) => {
 
     // Get the new garden from req.body
     const newGarden = req.body;
+
     // Validate attributes match model
     newGarden.owner = userId;
 

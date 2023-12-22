@@ -2,12 +2,13 @@
 
     <div class="container center mt-3">
         <h1>My Gardens</h1>
-        <div class="container row mt-3">
+        <div class="container row">
             <% if (loggedIn) { %>
                 <% if (gardens.length > 0) { %>
                     <!-- Display existing gardens here -->
                     <% gardens.forEach(g => { %>
                         <div class="card mt-3 me-3 garden-card">
+                            <img src="/images/gardens/<%= g.icon ? g.icon : 'icon_00.png' %>" alt="garden icon" class="card-img-top mt-3 garden-icon">
                             <div class="card-body">
                                 <h5 class="card-title"><%= g.name %></h5>
                                 <p class="card-text"><%= g.desc %></p>
