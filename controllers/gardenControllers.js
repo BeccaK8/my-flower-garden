@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
     const { username, loggedIn, userId } = req.session;
     
     // Query database to find all gardens belonging to the logged in user
-    Garden.find({ owner: userId })
+    Garden.find({ owner: userId }).sort( { name: 1})
         .then(userGardens => {
             // Display them on screen
             res.render('gardens/index', { gardens: userGardens, username, loggedIn, userId });
