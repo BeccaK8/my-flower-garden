@@ -15,7 +15,18 @@ const router = express.Router();
 // GET -> / -> /gardens
 router.get('/', (req, res) => {
     const { username, loggedIn, userId } = req.session;
-    res.render('gardens/index', { username, loggedIn, userId });
+    
+    // Query database to find all gardens belonging to the logged in user
+    Garden.find({ owner: userId })
+        .then(userGardens => {
+            // Display them on screen
+            res.render('gardens/index', { gardens: userGardens, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
 });
 
 // GET -> /new -> /gardens/new

@@ -1,19 +1,36 @@
 <%- include('../partials/header') %>
 
-    <div class="container mt-3">
+    <div class="container center mt-3">
         <h1>My Gardens</h1>
+        <div class="container row mt-3">
+            <% if (loggedIn) { %>
+                <% if (gardens.length > 0) { %>
+                    <!-- Display existing gardens here -->
+                    <% gardens.forEach(g => { %>
+                        <div class="card mt-3 me-3 garden-card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= g.name %></h5>
+                                <p class="card-text"><%= g.desc %></p>
+                            </div>
+                        </div>
+                    <% }); %>
 
-        <% if (loggedIn) { %>
-            <!-- Display existing gardens here -->
+                <% } else { %>
+                    <h4>No gardens created</h4>
+                <% } %>
 
-            <!-- Allow them add a new garden -->
-            <a href="/gardens/new" class="btn btn-success">Create New Garden</a>
-
-        <% } else { %>
-            <p>Log in or sign up to start creating your garden</p>
-            <a href="/users/login" class="btn btn-primary">Log In</a>
-            <a href="/users/signup" class="btn btn-secondary">Sign Up</a>
-        <% } %>
+    
+                <!-- Allow them add a new garden -->
+                <div class="mt-3">
+                    <a href="/gardens/new" class="btn btn-success">Create New Garden</a>
+                </div>
+    
+            <% } else { %>
+                <p>Log in or sign up to start creating your garden</p>
+                <a href="/users/login" class="btn btn-primary">Log In</a>
+                <a href="/users/signup" class="btn btn-secondary">Sign Up</a>
+            <% } %>
+        </div>
     </div>
 
 <%- include('../partials/footer') %>
