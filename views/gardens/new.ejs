@@ -1,0 +1,27 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <h1>Create a New Garden</h1>
+
+        <!-- Display a form with the fields to create a new garden -->
+        <form action="/gardens" method="post">
+            <fieldset>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Garden Name:</label>
+                    <input type="text" name="name" id="" class="form-control" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="desc" class="form-label">Description:</label>
+                    <input type="text" name="desc" id="" class="form-control">
+                </div>
+                
+                <div class="mb-3">
+                    <input type="submit" value="Create Garden" class="btn btn-success col-2">
+                    <a href="/gardens" class="btn btn-secondary col-2">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,19 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <h1>My Gardens</h1>
+
+        <% if (loggedIn) { %>
+            <!-- Display existing gardens here -->
+
+            <!-- Allow them add a new garden -->
+            <a href="/gardens/new" class="btn btn-success">Create New Garden</a>
+
+        <% } else { %>
+            <p>Log in or sign up to start creating your garden</p>
+            <a href="/users/login" class="btn btn-primary">Log In</a>
+            <a href="/users/signup" class="btn btn-secondary">Sign Up</a>
+        <% } %>
+    </div>
+
+<%- include('../partials/footer') %>

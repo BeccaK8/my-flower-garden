@@ -10,6 +10,7 @@ const middleware = require('./utils/middleware');
 /*****          Import Routers         *****/
 /*******************************************/
 const UserRouter = require('./controllers/userControllers');
+const GardenRouter = require('./controllers/gardenControllers');
 
 /*******************************************/
 /***** Create app + set up view engine *****/
@@ -37,6 +38,7 @@ app.get('/', (req, res) => {
 
 // Register Routes
 app.use('/users', UserRouter);
+app.use('/gardens', GardenRouter);
 
 // error page
 app.get('/error', (req, res) => {
