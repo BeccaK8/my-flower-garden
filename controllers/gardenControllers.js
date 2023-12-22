@@ -58,6 +58,25 @@ router.post('/', (req, res) => {
         });
 });
 
+// GET -> /gardens/:id/delete
+router.get('/:id/delete', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    const gardenId = req.params.id;
+
+    // Find garden using req.params.id
+    Garden.findById(gardenId)
+        .then(garden => {
+            // Render delete confirmation screen 
+            res.render('gardens/delete', { garden, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/
