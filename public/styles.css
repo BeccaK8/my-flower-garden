@@ -6,6 +6,10 @@ body {
     width: 45%;
 }
 
+.action-icon {
+    width: 10%;
+}
+
 .garden-icon {
     width: 20%;
 }
