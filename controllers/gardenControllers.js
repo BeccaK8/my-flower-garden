@@ -77,9 +77,9 @@ router.get('/delete/:id', (req, res) => {
         });
 });
 
-// DELETE -> /gardens/delete:id
-// Only available to 
-router.delete('/delete/:id', (req, res) => {
+// DELETE -> /gardens/:id
+// Only available to authorized users
+router.delete('/:id', (req, res) => {
     const { username, loggedIn, userId } = req.session;
 
     // Target specific garden
