@@ -1,0 +1,14 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <img src="/images/gardens/<%= garden.icon ? garden.icon : 'icon_00.png' %>" alt="garden icon" class="img-thumbnail float-end mt-3 garden-icon">
+        <h2><%= garden.name %></h2>
+        <p><%= garden.desc %> </p>
+        <a href="/gardens/<%= garden.id %>/edit" class="btn btn-success me-3">Edit</a>
+        <a href="/gardens/delete/<%= garden.id %>" class="btn btn-danger me-3">Delete</a>
+        <% if (garden.sections && garden.sections.length > 0) { %>
+
+        <% } %>
+    </div>
+
+<%- include('../partials/footer') %>

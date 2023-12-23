@@ -108,6 +108,26 @@ router.delete('/:id', (req, res) => {
         });
 });
 
+// GET -> /gardens/:id
+router.get('/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific garden
+    const gardenId = req.params.id;
+
+    // Find it in the database
+    Garden.findById(gardenId)
+        .then(foundGarden => {
+            // Render show page
+            res.render('gardens/show', { garden: foundGarden, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+})
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/
