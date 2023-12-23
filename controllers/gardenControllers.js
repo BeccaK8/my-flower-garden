@@ -58,8 +58,8 @@ router.post('/', (req, res) => {
         });
 });
 
-// GET -> /gardens/:id/delete
-router.get('/:id/delete', (req, res) => {
+// GET -> /gardens/delete/:id
+router.get('/delete/:id', (req, res) => {
     const { username, loggedIn, userId } = req.session;
 
     const gardenId = req.params.id;
@@ -69,6 +69,37 @@ router.get('/:id/delete', (req, res) => {
         .then(garden => {
             // Render delete confirmation screen 
             res.render('gardens/delete', { garden, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
+// DELETE -> /gardens/delete:id
+// Only available to 
+router.delete('/delete/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific garden
+    const gardenId = req.params.id;
+
+    // Find it in the database
+    Garden.findById(gardenId)
+        .then(foundGarden => {
+            // Determine if logged in user is authorized to delete it (that is, are they the owner of the garden)
+            if (foundGarden.owner = userId) {
+                // If authorized, delete it
+                return foundGarden.deleteOne();
+            } else {
+                // If not authorized, redirect to error page
+                res.redirect(`/error?error=You%20Not%20Authorized%20to%20Delete%20this%20Garden`);
+            }
+        })
+        .then(deletedGarden => {
+            // Redirect to My Gardens
+            res.redirect('/gardens')
         })
         .catch(err => {
             // Handle any errors
