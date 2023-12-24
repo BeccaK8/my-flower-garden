@@ -1,0 +1,44 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <h1>Edit Garden</h1>
+
+        <!-- Display a form with the fields to edit a new garden -->
+        <form action="/gardens/<%= garden.id %>?_method=PUT" method="post">
+            <fieldset>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Garden Name:</label>
+                    <input type="text" name="name" id="" class="form-control" required value="<%= garden.name %>">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="desc" class="form-label">Description:</label>
+                    <input type="text" name="desc" id="" class="form-control" value="<%= garden.desc %>">
+                </div>
+
+                <div>
+                    <label for="icon" class="form-label">Select Icon:</label>
+                </div>
+                <div class="container mb-3 form-check form-check-inline">
+                    <div class="row no-gutters">
+                        <% for (let i = 0; i < 12; i++) { %>
+                            <% const iconURL = `icon_${i.toString().padStart(2, '0')}.png`; %>
+                            <div class="col-6 col-sm-3 col-md-2 col-lg-1">
+                                <label class="form-check-inline">
+                                    <input type="radio" name="icon" value="<%= iconURL %>" class="garden-icon-radio" <%= (iconURL === garden.icon) ? 'checked' : '' %>>
+                                    <img src="/images/gardens/<%= iconURL %>" alt="Icon <%= i %>" class="garden-icon-form">
+                                </label>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <input type="submit" value="Update Garden" class="btn btn-success col-lg-2">
+                    <a href="/gardens" class="btn btn-secondary col-lg-2">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+<%- include('../partials/footer') %>
