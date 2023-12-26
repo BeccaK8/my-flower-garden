@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <h2><%= garden.name %> > <%= section.name %></h2>
+
+        <% if (section.containers && section.containers.length > 0) { %>
+            <h4 class="danger">This section has containers.  Please delete the containers before deleting the section.</h4>
+            <a href="/gardens" class="btn btn-info me-3">Return to My Gardens</a>
+        <% } else { %>
+            <h4>Are you sure you would like to delete this section?</h4>
+            <div class="btn-group">
+                <a href="/gardens/<%= garden.id %>" class="btn btn-warning me-3">Cancel</a>
+                <form action="/sections/<%= section.id %>?_method=DELETE" method="post">
+                    <input type="submit" class="btn btn-danger me-3" value="Delete Section">
+                </form>
+            </div>
+        <% } %>
+
+    </div>
+
+<%- include('../partials/footer') %>

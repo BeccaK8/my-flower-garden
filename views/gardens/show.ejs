@@ -37,7 +37,7 @@
                             <td><%= s.name %></td>
                             <td></td>
                             <td><a href="/sections/<%= s.id %>/edit" class="btn btn-warning">Rename</a></td>
-                            <td></td>
+                            <td><a href="/sections/<%= s.id %>/delete" class="btn btn-danger">Delete</a></td>
                         </tr>
                     <% }); %>
                 <% } else { %>
