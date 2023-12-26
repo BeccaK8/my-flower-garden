@@ -106,8 +106,6 @@ router.put('/sections/:id', (req, res) => {
     // Find the garden with that section Id in the database
     Garden.findOne( {'sections._id' : sectionId})
         .then(foundGarden => {
-
-            console.log('foundGarden: \n ', foundGarden);
             // Determine if logged in user is authorized to update it (that is, are they the owner of the garden)
             if (foundGarden.owner == userId) {
                 // If authorized, find the section subdoc
@@ -164,7 +162,6 @@ router.delete('/sections/:id', (req, res) => {
             }
         })
         .then(returnedGarden => {
-            console.log('returnedGarden: \n ', returnedGarden);
             // Redirect to My Gardens
             res.redirect(`/gardens/${returnedGarden.id}`);
         })

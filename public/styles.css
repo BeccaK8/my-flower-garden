@@ -14,6 +14,10 @@ body {
     width: 20%;
 }
 
+.garden-icon-show {
+    width: 10%;
+}
+
 .garden-icon-radio {
     position: absolute;
     opacity: 0;
