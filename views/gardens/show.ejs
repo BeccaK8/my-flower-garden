@@ -11,4 +11,43 @@
         <% } %>
     </div>
 
+    <hr>
+    <div class="container mt-3">
+        <h3>Garden Sections</h3>
+        <table class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Edit Section Name</th>
+                    <th scope="col">Update Containers</th>
+                    <th scope="col">Delete Section</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <% if (garden.sections && garden.sections.length > 0) { %>
+                    <% garden.sections.forEach(s => { %>
+                        <tr>
+                            <td><%= s.name %></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="4">No sections have been added to this garden</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <form action="/gardens/<%= garden.id %>/sections" method="post">
+        <div class="container mt-3 input-group">
+            <input type="hidden" name="">
+            <input type="text" name="name" placeholder="Section Name" aria-label="Recipient's username" required class="form-control">
+            <input type="submit" value="Add Section" class="btn btn-outline-success">
+        </div>
+    </form>
+
 <%- include('../partials/footer') %>

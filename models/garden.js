@@ -8,6 +8,12 @@ const { Schema, model } = mongoose;
 /*******************************************/
 /*****        Schema Definition        *****/
 /*******************************************/
+const SectionSchema =  new Schema({
+    name: { type: String, required: true }
+}, {
+    timestamps: true
+});
+
 const GardenSchema = new Schema({
     name: { type: String, required: true },
     desc: { type: String },
@@ -16,7 +22,8 @@ const GardenSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
-    }
+    },
+    sections: [SectionSchema]
 }, {
     timestamps: true
 });

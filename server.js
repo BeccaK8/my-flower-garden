@@ -11,6 +11,7 @@ const middleware = require('./utils/middleware');
 /*******************************************/
 const UserRouter = require('./controllers/userControllers');
 const GardenRouter = require('./controllers/gardenControllers');
+const SectionRouter = require('./controllers/sectionControllers');
 
 /*******************************************/
 /***** Create app + set up view engine *****/
@@ -39,6 +40,7 @@ app.get('/', (req, res) => {
 // Register Routes
 app.use('/users', UserRouter);
 app.use('/gardens', GardenRouter);
+app.use('/', SectionRouter);
 
 // error page
 app.get('/error', (req, res) => {
