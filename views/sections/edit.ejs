@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <h2>Rename Section</h2>
+
+        <!-- Display a form with the fields to rename a section -->
+        <form action="/sections/<%= section.id %>?_method=PUT" method="post">
+            <div class="container mt-3 input-group">
+                <input type="hidden" name="">
+                <input type="text" name="name" placeholder="Section Name" aria-label="Recipient's username" required class="form-control" value="<%= section.name %>">
+                <input type="submit" value="Rename" class="btn btn-outline-success col-lg-2">
+                <a href="/gardens/<%= gardenId %>" class="btn btn-outline-secondary col-lg-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+<%- include('../partials/footer') %>

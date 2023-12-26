@@ -47,6 +47,71 @@ router.post('/gardens/:id/sections', (req, res) => {
         });
 });
 
+// GET -> /sections/:id/edit
+// Edit section form
+router.get('/sections/:id/edit', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific section
+    const sectionId = req.params.id;
+
+    // Find the garden with that section Id in the database
+    Garden.findOne( {'sections._id' : sectionId})
+        .then(foundGarden => {
+            // Get section
+            const section = foundGarden.sections.id(sectionId);
+            // Render edit page
+            res.render('sections/edit', { section, gardenId: foundGarden.id, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
+// PUT -> /sections/:id
+// Update section
+router.put('/sections/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific section
+    const sectionId = req.params.id;
+    let gardenId; 
+
+    // Find the garden with that section Id in the database
+    Garden.findOne( {'sections._id' : sectionId})
+        .then(foundGarden => {
+
+            //console.log('foundGarden: \n ', foundGarden);
+            // Determine if logged in user is authorized to update it (that is, are they the owner of the garden)
+            if (foundGarden.owner == userId) {
+                // If authorized, find the section subdoc
+                const sectionSubdoc = foundGarden.sections.id(sectionId);
+                gardenId = foundGarden.id;
+                // Update the name on the subdoc
+                sectionSubdoc.name = req.body.name;
+                // Save the subdoc
+                return foundGarden.save();
+            } else {
+                // If not authorized, redirect to error page
+                throw new Error('You are not authorized to update this garden.');
+            }
+        })
+        .then(returnedGarden => {
+            //console.log('returnedGarden: \n ', returnedGarden);
+            // Redirect to My Gardens
+            res.redirect(`/gardens/${gardenId}`);
+
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+    
+});
+
 
 /*******************************************/
 /*****          Export Router          *****/
