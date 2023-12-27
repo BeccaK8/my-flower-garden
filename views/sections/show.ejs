@@ -17,9 +17,8 @@
                     <th scope="col" class="">Quantity</th>
                     <th scope="col" class="">Liner Quantity</th>
                     <th scope="col" class="">Active</th>
-                    <th scope="col" class="text-center">Add Flowers</th>
-                    <th scope="col" class="text-center">Update Container</th>
-                    <th scope="col" class="text-center">Delete Container</th>
+                    <th scope="col" class="text-center">Update</th>
+                    <th scope="col" class="text-center">Delete</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -38,18 +37,22 @@
                             <td><%= c.qty %></td>
                             <td><%= c.linerQty %></td>
                             <td><%= c.active ? 'Y' : 'N' %></td>
-                            <td class="text-center"></td>
                             <td class="text-center"><a href="/containers/<%= c.id %>/edit" class="btn btn-outline-warning">Update</a></td>
                             <td class="text-center"><a href="/containers/<%= c.id %>/delete" class="btn btn-outline-danger">Delete</a></td>
                         </tr>
                     <% }); %>
                 <% } else { %>
                     <tr>
-                        <td colspan="8">No containers have been added to this section</td>
+                        <td colspan="7">No containers have been added to this section</td>
                     </tr>
                 <% } %>
             </tbody>
         </table>
+        <div class="mt-3 btn-group">
+            <a href="/sections/<%= section.id %>/containers" class="btn btn-outline-success">Add Container</a>
+            <a href="/gardens/<%= garden.id %>" class="btn btn-outline-secondary">Cancel</a>
+        </div>
     </div>
+
 
 <%- include('../partials/footer') %>

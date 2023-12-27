@@ -8,8 +8,23 @@ const { Schema, model } = mongoose;
 /*******************************************/
 /*****        Schema Definition        *****/
 /*******************************************/
+const ContainerSchema = new Schema({
+    name: { type: String, required: true },
+    location: { type: String },
+    qty: { 
+        type: Number, 
+        required: true, 
+        default: 1 
+    },
+    linerQty: { type: Number, default: 0 },
+    active: {type: Boolean, default: true }
+}, {
+    timestamps: true
+});
+
 const SectionSchema =  new Schema({
-    name: { type: String, required: true }
+    name: { type: String, required: true },
+    containers: [ContainerSchema]
 }, {
     timestamps: true
 });

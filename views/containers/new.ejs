@@ -1,0 +1,42 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <img src="/images/gardens/<%= garden.icon ? garden.icon : 'icon_00.png' %>" alt="garden icon" class="img-thumbnail float-end mt-3 garden-icon-show">
+        <h2><%= garden.name %></h2>
+        <h3><%= section.name %> </h3>
+    </div>
+
+    <div class="container mt-3">
+        <h1>Create a New Container</h1>
+
+        <!-- Display a form with the fields to create a new container -->
+
+        <form action="/sections/<%= section.id %>/containers" method="post">
+            <fieldset>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Container Name:</label>
+                    <input type="text" name="name" id="" class="form-control" required placeholder="container name (e.g., window box, green pot)">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="location" class="form-label">Location:</label>
+                    <input type="text" name="location" id="" class="form-control" placeholder="where in the section the container usually sits">
+                </div>
+
+                <div class="mb-3 input-group align-items-center">
+                    <label for="qty" class="form-label me-2">Quantity:</label>
+                    <input type="text" name="qty" id="" class="form-control me-3" value="1">
+
+                    <label for="linerQty" class="form-label me-2 align-middle">Liner Quantity:</label>
+                    <input type="text" name="linerQty" id="" class="form-control" value="0">
+                </div>
+                
+                <div class="mb-3">
+                    <input type="submit" value="Create Container" class="btn btn-success col-lg-2">
+                    <a href="/sections/<%= section.id %>" class="btn btn-secondary col-lg-2">Cancel</a>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+<%- include('../partials/footer') %>
