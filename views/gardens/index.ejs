@@ -7,7 +7,7 @@
             </div>
             <div class="col">
                 <!-- Allow them add a new garden -->
-                <a href="/gardens/new" class="btn btn-success">Create New Garden</a>
+                <a href="/gardens/new" class="btn btn-outline-success">Create New Garden</a>
             </div>
         </div>
         
@@ -23,9 +23,9 @@
                                 <h5 class="card-title"><%= g.name %></h5>
                                 <p class="card-text"><%= g.desc %></p>
                             </div>
-                            <div class="card-footer text-end">
-                                <a href="/gardens/<%= g.id %>" class="btn btn-success me-3">View</a>
-                                <a href="/gardens/delete/<%= g.id %>" class="btn btn-danger me-3">Delete</a>
+                            <div class="card-footer btn-group text-end">
+                                <a href="/gardens/<%= g.id %>" class="btn btn-outline-success ms-3">View</a>
+                                <a href="/gardens/delete/<%= g.id %>" class="btn btn-outline-danger me-3">Delete</a>
                             </div>
                         </div>
                     <% }); %>
