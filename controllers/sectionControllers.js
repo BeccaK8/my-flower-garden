@@ -167,6 +167,30 @@ router.delete('/sections/:id', (req, res) => {
         })
 });
 
+// GET -> /sections/:id
+// Show section details
+router.get('/sections/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific section
+    const sectionId = req.params.id;
+
+    // Find the garden with that section Id in the database
+    Garden.findOne( {'sections._id' : sectionId})
+        .then(foundGarden => {
+            // Get section
+            const section = foundGarden.sections.id(sectionId);
+            // Render edit page
+            res.render('sections/show', { section, garden: foundGarden, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
+
 
 /*******************************************/
 /*****          Export Router          *****/

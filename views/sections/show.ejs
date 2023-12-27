@@ -1,0 +1,55 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <img src="/images/gardens/<%= garden.icon ? garden.icon : 'icon_00.png' %>" alt="garden icon" class="img-thumbnail float-end mt-3 garden-icon-show">
+        <h2><%= garden.name %></h2>
+        <h3><%= section.name %> </h3>
+    </div>
+
+    <hr>
+    <div class="container mt-3">
+        <h3>Containers</h3>
+        <table class="table table-hover table-striped align-middle">
+            <thead>
+                <tr>
+                    <th scope="col" class="">Name</th>
+                    <th scope="col" class="">Location</th>
+                    <th scope="col" class="">Quantity</th>
+                    <th scope="col" class="">Liner Quantity</th>
+                    <th scope="col" class="">Active</th>
+                    <th scope="col" class="text-center">Add Flowers</th>
+                    <th scope="col" class="text-center">Update Container</th>
+                    <th scope="col" class="text-center">Delete Container</th>
+                </tr>
+            </thead>
+            <tbody class="table-group-divider">
+                <% if (section.containers && section.containers.length > 0) { %>
+                    <% section.containers.sort((a, b) => {
+                        const nameA = a.name.toUpperCase();
+                        const nameB = b.name.toUpperCase();
+                        if (nameA < nameB) return -1;
+                        if (nameA > nameB) return 1;
+                        return 0;
+                    }); %>
+                    <% section.containers.forEach(c => { %>
+                        <tr>
+                            <td><%= c.name %></td>
+                            <td><%= c.location %></td>
+                            <td><%= c.qty %></td>
+                            <td><%= c.linerQty %></td>
+                            <td><%= c.active ? 'Y' : 'N' %></td>
+                            <td class="text-center"></td>
+                            <td class="text-center"><a href="/containers/<%= c.id %>/edit" class="btn btn-outline-warning">Update</a></td>
+                            <td class="text-center"><a href="/containers/<%= c.id %>/delete" class="btn btn-outline-danger">Delete</a></td>
+                        </tr>
+                    <% }); %>
+                <% } else { %>
+                    <tr>
+                        <td colspan="8">No containers have been added to this section</td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+<%- include('../partials/footer') %>
