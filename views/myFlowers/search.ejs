@@ -1,0 +1,21 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <h1>Flower and Plant Search</h1>
+
+        <!-- Display a form with the fields to create a new garden -->
+        <form action="/myFlowers/results" method="get">
+            <fieldset>
+                <div class="mb-3">
+                    <label for="keyword" class="form-label">Keyword:</label>
+                    <input type="text" name="keyword" id="" class="form-control" required>
+                </div>
+                
+                <div class="mb-3">
+                    <input type="submit" value="Search" class="btn btn-outline-success col-lg-2">
+                </div>
+            </fieldset>
+        </form>
+    </div>
+
+<%- include('../partials/footer') %>
