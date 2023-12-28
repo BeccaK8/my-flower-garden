@@ -1,0 +1,30 @@
+<%- include('../partials/header') %>
+
+    <div class="container center mt-3">
+        <div class="row justify-content-between align-items-center">
+            <div class="col">
+                <h1>My Favorite Flowers</h1>
+            </div>
+        </div>
+        
+        <div class="row">
+            <% if (plants.length > 0) { %>
+                <!-- Display existing favorite flowers here -->
+                <% plants.forEach(p => { %>
+                    <div class="card border-secondary mt-3 me-3 flower-card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= p.myFlowerName %></h5>
+                            <p class="card-text">Common Name: <%= p.commonName %></p>
+                            <p class="card-text">Scientific Name: <%= p.scientificName %></p>
+                        </div>
+                    </div>
+                <% }); %>
+
+            <% } else { %>
+                <h4>No favorite flowers saved</h4>
+            <% } %>
+
+        </div>
+    </div>
+
+<%- include('../partials/footer') %>

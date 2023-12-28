@@ -83,6 +83,24 @@ router.post('/', (req, res) => {
         });
 });
 
+// GET /myFlowers
+// Get index of my favorite flowers
+router.get('/', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+    
+    // Query database to find all favorite flowers belonging to the logged in user
+    MyFlower.find({ owner: userId }).sort( { myFlowerName: 1 })
+        .then(userFavorites => {
+            // Display them on screen
+            res.render('myFlowers/index', { plants: userFavorites, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/
