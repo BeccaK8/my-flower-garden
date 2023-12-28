@@ -12,7 +12,7 @@ const MyFlowerSchema = new Schema({
     myFlowerName: { type: String, required: true },
     externalApiId: { type: Number },
     commonName: { type: String },
-    scientificName: [String],
+    scientificName: { type: String },
     owner: {
         type: Schema.Types.ObjectId,
         ref: 'User',
