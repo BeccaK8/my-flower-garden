@@ -5,8 +5,6 @@ const express = require('express');
 const axios = require('axios');
 const https = require('https');
 const plantSearchUrl = process.env.PERENUAL_SEARCH_API_URL;
-const plantDetailsBaseUrl = process.env.PERENUAL_PLANT_DETAILS_BASE_URL;
-const plantDetailsUrlSuffix = process.env.PERENUAL_PLANT_DETAILS_URL_SUFFIX;
 const MyFlower = require('../models/myFlower');
 
 /*******************************************/
