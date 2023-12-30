@@ -17,6 +17,7 @@
                             <h5 class="card-title"><%= p.common_name %></h5>
                             <p class="card-text"><%= p.scientific_name %></p>
                         </div>
+                        <% if (loggedIn) { %> 
                         <div class="card-footer btn-group text-end">
                             <form action="/myFlowers" method="post">
                                 <div class="container mt-3 input-group">
@@ -28,6 +29,7 @@
                                 </div>
                         </form>
                         </div>
+                        <% } %>
                     </div>
                 <% }); %>
 

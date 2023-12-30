@@ -63,24 +63,29 @@ router.get('/results', (req, res) => {
 router.post('/', (req, res) => {
     const { username, loggedIn, userId } = req.session;
 
-    // Get the favorite flower from req.body
-    const newFavorite = req.body;
-
-    // Validate attributes match model
-    newFavorite.owner = userId;
-    if (newFavorite.myFlowerName.length === 0) newFavorite.myFlowerName = newFavorite.commonName;
-
-    //Create my flower
-    MyFlower.create(newFavorite)
-        .then(createdFavority => {
-            // Redirect to My Favorite Flowers
-            res.redirect('/myFlowers');
-        })
-        .catch(err => {
-            // Handle any errors
-            console.log(err);
-            res.redirect(`/error?error=${err}`);
-        });
+    // make sure someone logged in - otherwise redirect to search form
+    if (loggedIn) {
+        // Get the favorite flower from req.body
+        const newFavorite = req.body;
+    
+        // Validate attributes match model
+        newFavorite.owner = userId;
+        if (newFavorite.myFlowerName.length === 0) newFavorite.myFlowerName = newFavorite.commonName;
+    
+        //Create my flower
+        MyFlower.create(newFavorite)
+            .then(createdFavority => {
+                // Redirect to My Favorite Flowers
+                res.redirect('/myFlowers');
+            })
+            .catch(err => {
+                // Handle any errors
+                console.log(err);
+                res.redirect(`/error?error=${err}`);
+            });
+    } else {
+        res.redirect('/myFlowers/search')
+    }
 });
 
 // GET /myFlowers
