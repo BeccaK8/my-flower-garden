@@ -49,19 +49,9 @@ router.get('/containers/:id/edit', (req, res) => {
     Garden.findOne( {'sections.containers._id' : containerId})
         .then(foundGarden => {
             // Get section and container
-            let foundContainer;
-            let foundSection;
-            findContainer: for (let i = 0; i < foundGarden.sections.length; i++) {
-                const section = foundGarden.sections[i];
-                for (let j = 0; j < section.containers.length; j++) {
-                    const container = section.containers[j];
-                    if (container.id === containerId) {
-                        foundContainer = container;
-                        foundSection = section;
-                        break findContainer;
-                    }
-                }
-            }
+            const foundSection = getContainerSectionFromGarden(foundGarden, containerId);
+            const foundContainer = foundSection.containers.id(containerId);
+
             // Render delete confirmation screen 
             res.render('containers/edit', { garden: foundGarden, section: foundSection, container: foundContainer, username, loggedIn, userId });
         })
@@ -84,19 +74,9 @@ router.get('/containers/:id/delete', (req, res) => {
     Garden.findOne( {'sections.containers._id' : containerId})
         .then(foundGarden => {
             // Get section
-            let foundContainer;
-            let foundSection;
-            findContainer: for (let i = 0; i < foundGarden.sections.length; i++) {
-                const section = foundGarden.sections[i];
-                for (let j = 0; j < section.containers.length; j++) {
-                    const container = section.containers[j];
-                    if (container.id === containerId) {
-                        foundContainer = container;
-                        foundSection = section;
-                        break findContainer;
-                    }
-                }
-            }
+            const foundSection = getContainerSectionFromGarden(foundGarden, containerId);
+            const foundContainer = foundSection.containers.id(containerId);
+
             // Render delete confirmation screen 
             res.render('containers/delete', { garden: foundGarden, section: foundSection, container: foundContainer, username, loggedIn, userId });
         })
@@ -156,8 +136,8 @@ router.put('/containers/:id', (req, res) => {
             if (foundGarden.owner == userId) {
                 // If authorized, find the section subdoc
                 const section = getContainerSectionFromGarden(foundGarden, containerId);
-                sectionId = section.id;
                 const containerSubdoc = section.containers.id(containerId);
+                sectionId = section.id;
 
                 // Update the attributes on the subdoc
                 containerSubdoc.name = req.body.name;
@@ -233,7 +213,6 @@ function getContainerSectionFromGarden(garden, containerId) {
     }
     return null;
 }
-
 
 /*******************************************/
 /*****          Export Router          *****/
