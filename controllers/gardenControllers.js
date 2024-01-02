@@ -62,9 +62,9 @@ router.get('/new', (req, res) => {
     res.render('gardens/new', { username, loggedIn, userId });
 });
 
-// GET -> /gardens/delete/:id
+// GET -> /gardens/:id/delete
 // Show delete garden form
-router.get('/delete/:id', (req, res) => {
+router.get('/:id/delete', (req, res) => {
     const { username, loggedIn, userId } = req.session;
 
     const gardenId = req.params.id;

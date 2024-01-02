@@ -17,8 +17,8 @@
                     <th scope="col" class="text-center">Quantity</th>
                     <th scope="col" class="text-center">Liner Quantity</th>
                     <!-- <th scope="col" class="">Active</th> -->
-                    <th scope="col" class="text-center">Update</th>
-                    <th scope="col" class="text-center">Delete</th>
+                    <th scope="col" class="text-center">Actions</th>
+                    <!-- <th scope="col" class="text-center">Delete</th> -->
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -37,8 +37,15 @@
                             <td class="text-center"><%= c.qty %></td>
                             <td class="text-center"><%= c.linerQty %></td>
                             <!-- <td><%= c.active ? 'Y' : 'N' %></td> -->
-                            <td class="text-center"><a href="/containers/<%= c.id %>/edit" class="btn btn-outline-warning">Update</a></td>
-                            <td class="text-center"><a href="/containers/<%= c.id %>/delete" class="btn btn-outline-danger">Delete</a></td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a href="/containers/<%= c.id %>/add" class="btn btn-outline-success">Add Flowers</a>
+                                    <a href="/containers/<%= c.id %>/edit" class="btn btn-outline-warning">Update</a>
+                                    <a href="/containers/<%= c.id %>/delete" class="btn btn-outline-danger">Delete</a>
+                                </div>
+                            </td>
+
+                            <!-- <td class="text-center"><a href="/containers/<%= c.id %>/delete" class="btn btn-outline-danger">Delete</a></td> -->
                         </tr>
                     <% }); %>
                 <% } else { %>

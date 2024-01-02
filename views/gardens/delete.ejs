@@ -8,8 +8,8 @@
             <a href="/gardens" class="btn btn-outline-secondary me-3">Return to My Gardens</a>
         <% } else { %>
             <h4>Are you sure you would like to delete this garden?</h4>
-            <div class="input-group">
-                <a href="/gardens" class="btn btn-outline-secondary me-3 rounded-right">Cancel</a>
+            <div class="btn-group">
+                <a href="/gardens" class="btn btn-outline-secondary me-3">Cancel</a>
                 <form action="/gardens/<%= garden.id %>?_method=DELETE" method="post">
                     <input type="submit" class="btn btn-outline-danger me-3" value="Delete Garden">
                 </form>

@@ -15,7 +15,6 @@ const router = express.Router();
 
 // All routes start with /
 
-
 // GET /sections/:id/containers
 // Get new container form
 router.get('/sections/:id/containers', (req, res) => { 
