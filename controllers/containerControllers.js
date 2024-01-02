@@ -38,6 +38,40 @@ router.get('/sections/:id/containers', (req, res) => {
         });
 });
 
+// GET /containers/:id/delete
+// Show Delete Container confirmation form
+router.get('/containers/:id/delete', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+    
+    const containerId = req.params.id;
+    
+    // Find garden using container Id
+    Garden.findOne( {'sections.containers._id' : containerId})
+        .then(foundGarden => {
+            // Get section
+            let foundContainer;
+            let foundSection;
+            findContainer: for (let i = 0; i < foundGarden.sections.length; i++) {
+                const section = foundGarden.sections[i];
+                for (let j = 0; j < section.containers.length; j++) {
+                    const container = section.containers[j];
+                    if (container.id === containerId) {
+                        foundContainer = container;
+                        foundSection = section;
+                        break findContainer;
+                    }
+                }
+            }
+            // Render delete confirmation screen 
+            res.render('containers/delete', { garden: foundGarden, section: foundSection, container: foundContainer, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
 // POST /sections/:id/containers
 // Create new container and redirect to show section paage
 router.post('/sections/:id/containers', (req, res) => {

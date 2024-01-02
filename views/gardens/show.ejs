@@ -15,9 +15,7 @@
             <thead>
                 <tr>
                     <th scope="col" class="col-lg-3">Name</th>
-                    <th scope="col" class="text-center">Manage Containers & Flowers</th>
-                    <th scope="col" class="text-center">Rename Section</th>
-                    <th scope="col" class="text-center">Delete Section</th>
+                    <th scope="col" class="text-center">Actions</th>
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -32,9 +30,13 @@
                     <% garden.sections.forEach(s => { %>
                         <tr>
                             <td><%= s.name %></td>
-                            <td class="text-center"><a href="/sections/<%= s.id %>" class="btn btn-outline-success">Manage</a></td>
-                            <td class="text-center"><a href="/sections/<%= s.id %>/edit" class="btn btn-outline-warning">Rename</a></td>
-                            <td class="text-center"><a href="/sections/<%= s.id %>/delete" class="btn btn-outline-danger">Delete</a></td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a href="/sections/<%= s.id %>" class="btn btn-outline-success">Manage Containers & Flowers</a>
+                                    <a href="/sections/<%= s.id %>/edit" class="btn btn-outline-warning">Rename Section</a>
+                                    <a href="/sections/<%= s.id %>/delete" class="btn btn-outline-danger">Delete Section</a>
+                                </div>
+                            </td>
                         </tr>
                     <% }); %>
                 <% } else { %>

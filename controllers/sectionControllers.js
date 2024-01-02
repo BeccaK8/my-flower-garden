@@ -93,7 +93,6 @@ router.get('/sections/:id/delete', (req, res) => {
         });
 });
 
-
 // PUT -> /sections/:id
 // Update section
 router.put('/sections/:id', (req, res) => {
