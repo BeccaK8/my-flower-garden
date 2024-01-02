@@ -140,6 +140,50 @@ router.delete('/containers/:id', (req, res) => {
         })
 });
 
+// PUT /containers/:id
+// Update container and redirect to show section page
+router.put('/containers/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific container
+    const containerId = req.params.id;
+    let sectionId;
+
+    // Find the garden with that container Id in the database
+    Garden.findOne( {'sections.containers._id' : containerId})
+        .then(foundGarden => {
+            // Determine if logged in user is authorized to update it (that is, are they the owner of the garden)
+            if (foundGarden.owner == userId) {
+                // If authorized, find the section subdoc
+                const section = getContainerSectionFromGarden(foundGarden, containerId);
+                sectionId = section.id;
+                const containerSubdoc = section.containers.id(containerId);
+
+                // Update the attributes on the subdoc
+                containerSubdoc.name = req.body.name;
+                containerSubdoc.location = req.body.location;
+                containerSubdoc.qty = req.body.qty;
+                containerSubdoc.linerQty = req.body.linerQty;
+
+                // Save the subdoc
+                return foundGarden.save();
+            } else {
+                // If not authorized, redirect to error page
+                throw new Error('You are Not Authorized to Update this Container.');
+            }
+        })
+        .then(returnedGarden => {
+            // Redirect to Section
+            res.redirect(`/sections/${sectionId}`);
+
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
 // POST /sections/:id/containers
 // Create new container and redirect to show section paage
 router.post('/sections/:id/containers', (req, res) => {
@@ -173,6 +217,23 @@ router.post('/sections/:id/containers', (req, res) => {
             res.redirect(`/error?error=${err}`);
         });
 });
+
+/*******************************************/
+/*****          Helper Methods         *****/
+/*******************************************/
+function getContainerSectionFromGarden(garden, containerId) {
+    for (let i = 0; i < garden.sections.length; i++) {
+        const section = garden.sections[i];
+        for (let j = 0; j < section.containers.length; j++) {
+            const container = section.containers[j];
+            if (container.id === containerId) {
+                return section;
+            }
+        }
+    }
+    return null;
+}
+
 
 /*******************************************/
 /*****          Export Router          *****/
