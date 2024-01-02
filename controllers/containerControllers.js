@@ -199,6 +199,30 @@ router.post('/sections/:id/containers', (req, res) => {
         });
 });
 
+// GET /containers/:id
+// Render the container show page
+router.get('/containers/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+    
+    const containerId = req.params.id;
+    
+    // Find garden using container Id
+    Garden.findOne( {'sections.containers._id' : containerId})
+        .then(foundGarden => {
+            // Get section
+            const foundSection = ControllerHelper.getContainerSectionFromGarden(foundGarden, containerId);
+            const foundContainer = foundSection.containers.id(containerId);
+
+            // Render delete confirmation screen 
+            res.render('containers/show', { garden: foundGarden, section: foundSection, container: foundContainer, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/
