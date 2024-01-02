@@ -90,9 +90,7 @@ router.delete('/containers/:id', (req, res) => {
             // Determine if logged in user is authorized to update it (that is, are they the owner of the garden)
             if (foundGarden.owner == userId) {
                 // If authorized, remove the container subdoc from the correct section sub doc 
-                findContainer: for (let i = 0; i < foundGarden.sections.length; i++) {
-                    foundGarden.sections[i].containers.remove(containerId);
-                }
+                foundGarden.sections.forEach(section => section.containers.remove(containerId));
                 
                 // Save the garden
                 return foundGarden.save();
