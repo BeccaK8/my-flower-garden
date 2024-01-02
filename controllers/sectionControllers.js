@@ -33,7 +33,7 @@ router.post('/gardens/:id/sections', (req, res) => {
                 // Save the garden
                 return foundGarden.save();
             } else {
-                throw new Error('You are not authorized to update this garden.');
+                throw new Error('You are Not Authorized to Update this Garden.');
             }
         })
         .then(updatedGarden => {
@@ -117,7 +117,7 @@ router.put('/sections/:id', (req, res) => {
                 return foundGarden.save();
             } else {
                 // If not authorized, redirect to error page
-                throw new Error('You are not authorized to update this garden.');
+                throw new Error('You are Not Authorized to Update this Garden.');
             }
         })
         .then(returnedGarden => {
@@ -158,7 +158,7 @@ router.delete('/sections/:id', (req, res) => {
                 return foundGarden.save();
             } else {
                 // If not authorized, redirect to error page
-                throw new Error('You are not authorized to update this garden.');
+                throw new Error('You are Not Authorized to Update this Garden.');
             }
         })
         .then(returnedGarden => {
@@ -189,8 +189,6 @@ router.get('/sections/:id', (req, res) => {
             res.redirect(`/error?error=${err}`);
         });
 });
-
-
 
 /*******************************************/
 /*****          Export Router          *****/

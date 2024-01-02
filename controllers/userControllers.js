@@ -73,11 +73,11 @@ router.post('/login', (req, res) => {
                     res.redirect('/');
                 } else {
                     // wrong password -> show error page
-                    res.redirect('/error?error=Something%20wrong%20with%20credentials');
+                    throw new Error('Please Check your Credentials as They Do Not Match your Account.');
                 }
             } else {
                 // no user found -> show error page
-                res.redirect('/error?error=Something%20wrong%20with%20credentials');
+                throw new Error('Please Check your Credentials as They Do Not Match your Account.');
             }
         })
         .catch(err => {

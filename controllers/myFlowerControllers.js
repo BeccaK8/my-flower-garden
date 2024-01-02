@@ -48,7 +48,6 @@ router.get('/results', (req, res) => {
         .then(apiRes => {
             // If we get data, render in an index page
             console.log('this came back from the api: \n', apiRes.data.data);
-
             res.render('myFlowers/results', { plants: apiRes.data.data, username, loggedIn, userId });
         })
         .catch(err => {
@@ -74,7 +73,7 @@ router.post('/', (req, res) => {
     
         //Create my flower
         MyFlower.create(newFavorite)
-            .then(createdFavority => {
+            .then(createdFavorite => {
                 // Redirect to My Favorite Flowers
                 res.redirect('/myFlowers');
             })
@@ -144,7 +143,7 @@ router.delete('/:id', (req, res) => {
                 return foundFavorite.deleteOne();
             } else {
                 // If not authorized, redirect to error page
-                throw new Error('You Not Authorized to Delete this Favorite');
+                throw new Error('You Not Authorized to Delete this Favorite.');
             }
         })
         .then(deletedFavorite => {

@@ -59,7 +59,7 @@ router.post('/sections/:id/containers', (req, res) => {
                 // Save the garden
                 return foundGarden.save();
             } else {
-                throw new Error('You are not authorized to update this section.');
+                throw new Error('You are Not Authorized to Update this Section.');
             }
         })
         .then(updatedGarden => {

@@ -117,25 +117,19 @@ router.put('/:id', (req, res) => {
     delete updatedGarden.owner;
     updatedGarden.owner = userId;
 
-    //console.log('updated garden: \n ', updatedGarden);
     // Find it in the database
     Garden.findById(gardenId)
         .then(foundGarden => {
-
-            //console.log('foundGarden: \n ', foundGarden);
             // Determine if logged in user is authorized to update it (that is, are they the owner of the garden)
             if (foundGarden.owner == userId) {
                 // If authorized, update it
-                //console.log('same owner - good to update');
                 return foundGarden.updateOne(updatedGarden);
             } else {
-                //console.log('not authorized - redirect');
                 // If not authorized, redirect to error page
-                res.redirect('/error?error=You%20are%20Not%20Authorized%20to%20Update%20this%20Garden');
+                throw new Error('You are Not Authorized to Update this Garden.');
             }
         })
         .then(returnedGarden => {
-            //console.log('returnedGarden: \n ', returnedGarden);
             // Redirect to My Gardens
             res.redirect(`/gardens/${gardenId}`);
 
@@ -166,7 +160,8 @@ router.delete('/:id', (req, res) => {
                 return foundGarden.deleteOne();
             } else {
                 // If not authorized, redirect to error page
-                res.redirect(`/error?error=You%20Not%20Authorized%20to%20Delete%20this%20Garden`);
+                throw new Error('You are Not Authorized to Delete this Garden.');
+
             }
         })
         .then(deletedGarden => {
