@@ -106,6 +106,58 @@ router.get('/', (req, res) => {
         });
 });
 
+// GET /myFlowers/delete/:id
+// Show delete confirmation page
+router.get('/delete/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    const myFlowerId = req.params.id;
+
+    // Find my favorite flower using req.params.id
+    MyFlower.findById(myFlowerId)
+        .then(myFlower => {
+            // Render delete confirmation screen 
+            res.render('myFlowers/delete', { myFlower, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
+// DELETE -> /myFlowers/:id
+// Delete favorite flower
+// Only available to authorized users
+router.delete('/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific favorite
+    const myFlowerId = req.params.id;
+
+    // Find it in the database
+    MyFlower.findById(myFlowerId)
+        .then(foundFavorite => {
+            // Determine if logged in user is authorized to delete it (that is, are they the owner of the garden)
+            if (foundFavorite.owner == userId) {
+                // If authorized, delete it
+                return foundFavorite.deleteOne();
+            } else {
+                // If not authorized, redirect to error page
+                throw new Error('You Not Authorized to Delete this Favorite');
+            }
+        })
+        .then(deletedFavorite => {
+            // Redirect to My Favorite Flowers
+            res.redirect('/myFlowers')
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/

@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <h2>My Favorite Flower: <%= myFlower.myFlowerName %></h2>
+        
+        <h4>Are you sure you would like to delete this garden?</h4>
+        <div class="input-group">
+            <a href="/myFlowers" class="btn btn-outline-secondary me-3 rounded-right">Cancel</a>
+            <form action="/myFlowers/<%= myFlower.id %>?_method=DELETE" method="post">
+                <input type="submit" class="btn btn-outline-danger me-3" value="Delete Favorite">
+            </form>
+        </div>
+    </div>
+
+<%- include('../partials/footer') %>
