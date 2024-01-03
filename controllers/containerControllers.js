@@ -220,7 +220,7 @@ router.get('/containers/:id', (req, res) => {
             container = section.containers.id(containerId);
 
             // Get Logged In User's favorite flowers
-            return MyFlower.find( { 'owner' : userId }).populate();
+            return MyFlower.find( { 'owner' : userId }).populate().sort({ myFlowerName: 1 });
         })
         .then(foundFavorites => {
             // Render container show screen 
