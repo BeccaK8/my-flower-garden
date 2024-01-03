@@ -8,6 +8,27 @@ const { Schema, model } = mongoose;
 /*******************************************/
 /*****        Schema Definition        *****/
 /*******************************************/
+const PlantedFlowerSchema = new Schema({
+    flower: {
+        type: Schema.Types.ObjectId,
+        ref: 'MyFlower',
+        required: true
+    }, 
+    qty: {
+        type: Number, 
+        min: 0,
+        required: true
+    },
+    packaging: {
+        type: String,
+        enum: [ 'Basket', 'Basket with Accent Plants', 'Individual', 'Other' ],
+        required: true
+    },
+    otherPackaging: String
+}, {
+    timestamps: true
+});
+
 const ContainerSchema = new Schema({
     name: { type: String, required: true },
     location: { type: String },
@@ -17,7 +38,8 @@ const ContainerSchema = new Schema({
         default: 1 
     },
     linerQty: { type: Number, default: 0 },
-    active: { type: Boolean, default: true }
+    active: { type: Boolean, default: true },
+    plantedFlowers: [PlantedFlowerSchema]
 }, {
     timestamps: true
 });

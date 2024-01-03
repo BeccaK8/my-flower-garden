@@ -4,7 +4,62 @@
         <img src="/images/gardens/<%= garden.icon ? garden.icon : 'icon_00.png' %>" alt="garden icon" class="img-thumbnail float-end mt-3 garden-icon-show">
         <h2><%= garden.name %> > <%= section.name %> </h2>
         <h3>Container: <%= container.name %></h3>
-        <p>Here we need to show the form and info to add flowers to the container...</p>
+    </div>
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col">My Flower</div>
+            <div class="col">Quantity</div>
+            <div class="col">Packaging</div>
+            <div class="col">Other Packaging</div>
+            <div class="col">Update | Delete</div>
+        </div>
+
+        <% if (container.plantedFlowers && container.plantedFlowers.length > 0) { %>
+            <% container.plantedFlowers.forEach(pf => { %>
+                <div class="row">
+                    <div class="col"><%= pf.flower.myFlowerName %></div>
+                    <div class="col"><%= pf.qty %></div>
+                    <div class="col"><%= pf.packaging %></div>
+                    <div class="col"><%= pf.otherPackaging %></div>
+                    <div class="col">Update | Delete</div>
+                </div>
+            <% }); %>
+        <% } %>
+
+        <% if (myFavoriteFlowers.length > 0) { %>
+                <form action="/containers/<%= container.id %>/plantedFlowers" method="post" class="row">
+                    <div class="col">
+                        <select name="flower" class="form-control">
+                            <% myFavoriteFlowers.forEach(mff => { %>
+                                <option value="<%= mff.id %>"><%= mff.myFlowerName %></option> 
+                            <% }); %>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="qty" placeholder="number needed">
+                    </div>
+                    <div class="col">                        
+                        <select name="packaging" class="form-control">
+                            <option value="Basket">Basket</option> 
+                            <option value="Basket with Accent Plants">Basket with Accent Plants</option> 
+                            <option value="Individual">Individual</option> 
+                            <option value="Other">Other</option> 
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control" name="otherPackaging">
+                    </div>
+                    <div class="col">
+                        <input type="submit" value="Add">
+                    </div>
+                </form>
+        <% } %>
+
+        <div class="row">
+            <div class="col">Search for Favorite Flowers</div>
+            <div class="col">Done</div>
+        </div>
     </div>
 
 

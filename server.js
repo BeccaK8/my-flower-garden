@@ -14,6 +14,7 @@ const GardenRouter = require('./controllers/gardenControllers');
 const SectionRouter = require('./controllers/sectionControllers');
 const ContainerRouter = require('./controllers/containerControllers');
 const MyFlowerRouter = require('./controllers/myFlowerControllers');
+const PlantedFlowerRouter = require('./controllers/plantedFlowerControllers');
 
 /*******************************************/
 /***** Create app + set up view engine *****/
@@ -45,6 +46,7 @@ app.use('/gardens', GardenRouter);
 app.use('/', SectionRouter);
 app.use('/', ContainerRouter);
 app.use('/myFlowers', MyFlowerRouter);
+app.use('/', PlantedFlowerRouter);
 
 // error page
 app.get('/error', (req, res) => {

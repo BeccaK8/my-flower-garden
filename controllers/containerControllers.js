@@ -4,6 +4,7 @@
 const express = require('express');
 const Garden = require('../models/garden');
 const ControllerHelper = require('../utils/controllerHelper');
+const MyFlower = require('../models/myFlower');
 
 /*******************************************/
 /*****          Create Router          *****/
@@ -205,16 +206,31 @@ router.get('/containers/:id', (req, res) => {
     const { username, loggedIn, userId } = req.session;
     
     const containerId = req.params.id;
+    let garden;
+    let section;
+    let container;
     
     // Find garden using container Id
-    Garden.findOne( {'sections.containers._id' : containerId})
+    Garden.findOne( { 'sections.containers._id' : containerId })
+        .populate( { path: 'sections.containers.plantedFlowers.flower' } )
         .then(foundGarden => {
             // Get section
-            const foundSection = ControllerHelper.getContainerSectionFromGarden(foundGarden, containerId);
-            const foundContainer = foundSection.containers.id(containerId);
+            garden = foundGarden;
+            section = ControllerHelper.getContainerSectionFromGarden(foundGarden, containerId);
+            container = section.containers.id(containerId);
 
-            // Render delete confirmation screen 
-            res.render('containers/show', { garden: foundGarden, section: foundSection, container: foundContainer, username, loggedIn, userId });
+            // Get Logged In User's favorite flowers
+            return MyFlower.find( { 'owner' : userId }).populate();
+        })
+        .then(foundFavorites => {
+            // Render container show screen 
+            res.render('containers/show', { 
+                garden, 
+                section, 
+                container, 
+                myFavoriteFlowers: foundFavorites, 
+                username, loggedIn, userId
+            });
         })
         .catch(err => {
             // Handle any errors
