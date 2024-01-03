@@ -14,7 +14,7 @@
                     <th class="col">Quantity</th>
                     <th class="col">Packaging</th>
                     <th class="col">Other Packaging</th>
-                    <th class="col">Update | Delete</th>
+                    <th class="col">Manage</th>
                 </tr>
             </thead>
 
@@ -22,13 +22,35 @@
 
                 <% if (container.plantedFlowers && container.plantedFlowers.length > 0) { %>
                     <% container.plantedFlowers.forEach(pf => { %>
-                        <tr class="row mt-2 p-2">
-                            <td class="col"><%= pf.flower.myFlowerName %></td>
-                            <td class="col"><%= pf.qty %></td>
-                            <td class="col"><%= pf.packaging %></td>
-                            <td class="col"><%= pf.otherPackaging %></td>
-                            <td class="col">Update | Delete</td>
-                        </tr>
+                        <form action="/plantedFlowers/<%= pf.id %>?_method=PUT" method="post">
+                            <tr class="row mt-2 p-2">
+                                <td class="col">
+                                    <select name="flower" class="form-control">
+                                            <option value="">Pick your favorite flower... **</option>
+                                        <% myFavoriteFlowers.forEach(mff => { %>
+                                            <option value="<%= mff.id %>" <%= (pf.flower.id == mff.id) ? 'selected' : '' %>><%= mff.myFlowerName %></option> 
+                                        <% }); %>
+                                    </select>
+                                </td>
+                                <td class="col"><input type="text" name="qty" value="<%= pf.qty %>" class="form-control"></td>
+                                <td class="col">                        
+                                    <select name="packaging" class="form-control">
+                                        <option value="">Select flower packaging...</option> 
+                                        <option value="Basket" <%= pf.packaging === 'Basket' ? 'selected' : '' %>>Basket</option> 
+                                        <option value="Basket with Accent Plants" <%= pf.packaging === 'Basket with Accent Plants' ? 'selected' : '' %>>Basket with Accent Plants</option> 
+                                        <option value="Individual" <%= pf.packaging === 'Individual' ? 'selected' : '' %>>Individual</option> 
+                                        <option value="Other" <%= pf.packaging === 'Other' ? 'selected' : '' %>>Other</option> 
+                                    </select>
+                                </td>
+                                <td class="col"><input type="text" name="otherPackaging" value="<%= pf.otherPackaging %>" class="form-control"></td>
+                                <td class="col">
+                                    <div class="btn-grp">
+                                        <input type="submit" value="Update" class="btn btn-outline-success">
+                                        <a href="" class="btn btn-outline-danger">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </form>
                     <% }); %>
                 <% } %>
                         
@@ -69,7 +91,7 @@
         </table>
         <p>** You need to search for flowers and add them to your Favorite Flowers before they can be added to a container.</p>
         <div class="container mt-3 btn-group">
-            <a href="/myFlowers/search" class="btn btn-outline-secondary">Search for Favorite Flowers</a>
+            <a href="/myFlowers/search" class="btn btn-outline-secondary">Search for Flowers</a>
             <a href="/sections/<%= section.id %>" class="btn btn-outline-success">Done</a>
             
         </div>
