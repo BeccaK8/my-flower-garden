@@ -31,7 +31,7 @@ router.post('/containers/:id/plantedFlowers', (req, res) => {
             // Determine if logged in user is authorized to add planted flower (that is, are they the owner of the garden)
             if (foundGarden.owner == userId) {
                 // Get the section and container
-                const section = ControllerHelper.getContainerSectionFromGarden(foundGarden, containerId);
+                const section = ControllerHelper.getContainerParentsFromGarden(foundGarden, containerId).section;
                 const container = section.containers.id(containerId);
 
                 // Push the new plantedflower (in req.body) onto the container.plantedFlowers array
