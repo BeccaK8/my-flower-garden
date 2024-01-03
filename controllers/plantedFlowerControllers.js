@@ -130,6 +130,42 @@ router.get('/plantedFlowers/:id/delete', (req, res) => {
         });
 });
 
+// DELETE /plantedFlowers/:id
+// Delete planted flower from container and redirect to container show page
+// Only available to authorized users
+router.delete('/plantedFlowers/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific planted flower
+    const plantedFlowerId = req.params.id;
+    let containerId;
+
+    // Find the garden with that container Id in the database
+    Garden.findOne( { 'sections.containers.plantedFlowers._id' : plantedFlowerId })
+        .then(foundGarden => {
+            // If we couldn't find the garden, just redirect to the My Gardens index page
+            if (!foundGarden) return res.redirect('/gardens');
+
+            // Determine if logged in user is authorized to update it (that is, are they the owner of the garden)
+            if (foundGarden.owner == userId) {
+                // If authorized, remove the container subdoc from the correct section sub doc
+                const container = ControllerHelper.getPlantedFlowerParentsFromGarden(foundGarden, plantedFlowerId).container; 
+                containerId = container.id;
+                container.plantedFlowers.forEach(pf => container.plantedFlowers.remove(plantedFlowerId));
+                
+                // Save the garden
+                return foundGarden.save();
+            } else {
+                // If not authorized, redirect to error page
+                throw new Error('You are Not Authorized to Update this Garden.');
+            }
+        })
+        .then(returnedGarden => {
+            // Redirect to Container Show Page
+            res.redirect(`/containers/${containerId}`);
+        })
+});
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/
