@@ -7,60 +7,71 @@
     </div>
 
     <div class="container mt-3">
-        <div class="row">
-            <div class="col">My Flower</div>
-            <div class="col">Quantity</div>
-            <div class="col">Packaging</div>
-            <div class="col">Other Packaging</div>
-            <div class="col">Update | Delete</div>
-        </div>
+        <table class="container mt-2 table">
+            <thead>
+                <tr class="row">
+                    <th class="col">My Flower</th>
+                    <th class="col">Quantity</th>
+                    <th class="col">Packaging</th>
+                    <th class="col">Other Packaging</th>
+                    <th class="col">Update | Delete</th>
+                </tr>
+            </thead>
 
-        <% if (container.plantedFlowers && container.plantedFlowers.length > 0) { %>
-            <% container.plantedFlowers.forEach(pf => { %>
-                <div class="row">
-                    <div class="col"><%= pf.flower.myFlowerName %></div>
-                    <div class="col"><%= pf.qty %></div>
-                    <div class="col"><%= pf.packaging %></div>
-                    <div class="col"><%= pf.otherPackaging %></div>
-                    <div class="col">Update | Delete</div>
-                </div>
-            <% }); %>
-        <% } %>
+            <tbody>
 
-        <% if (myFavoriteFlowers.length > 0) { %>
-                <form action="/containers/<%= container.id %>/plantedFlowers" method="post" class="row">
-                    <div class="col">
-                        <select name="flower" class="form-control">
-                            <% myFavoriteFlowers.forEach(mff => { %>
-                                <option value="<%= mff.id %>"><%= mff.myFlowerName %></option> 
-                            <% }); %>
-                        </select>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" name="qty" placeholder="number needed">
-                    </div>
-                    <div class="col">                        
-                        <select name="packaging" class="form-control">
-                            <option value="Basket">Basket</option> 
-                            <option value="Basket with Accent Plants">Basket with Accent Plants</option> 
-                            <option value="Individual">Individual</option> 
-                            <option value="Other">Other</option> 
-                        </select>
-                    </div>
-                    <div class="col">
-                        <input type="text" class="form-control" name="otherPackaging">
-                    </div>
-                    <div class="col">
-                        <input type="submit" value="Add">
-                    </div>
-                </form>
-        <% } %>
-
-        <div class="row">
-            <div class="col">Search for Favorite Flowers</div>
-            <div class="col">Done</div>
+                <% if (container.plantedFlowers && container.plantedFlowers.length > 0) { %>
+                    <% container.plantedFlowers.forEach(pf => { %>
+                        <tr class="row mt-2 p-2">
+                            <td class="col"><%= pf.flower.myFlowerName %></td>
+                            <td class="col"><%= pf.qty %></td>
+                            <td class="col"><%= pf.packaging %></td>
+                            <td class="col"><%= pf.otherPackaging %></td>
+                            <td class="col">Update | Delete</td>
+                        </tr>
+                    <% }); %>
+                <% } %>
+                        
+                <% if (myFavoriteFlowers.length > 0) { %>
+                    <tr class="row p-2">
+                        <form action="/containers/<%= container.id %>/plantedFlowers" method="post">
+                            <td class="col">
+                                <select name="flower" class="form-control">
+                                        <option value="" selected>Pick your favorite flower...</option>
+                                    <% myFavoriteFlowers.forEach(mff => { %>
+                                        <option value="<%= mff.id %>"><%= mff.myFlowerName %></option> 
+                                    <% }); %>
+                                </select>
+                            </td>
+                            <td class="col">
+                                <input type="text" class="form-control" name="qty" placeholder="number needed">
+                            </td>
+                            <td class="col">                        
+                                <select name="packaging" class="form-control">
+                                    <option value="">Select flower packaging...</option> 
+                                    <option value="Basket">Basket</option> 
+                                    <option value="Basket with Accent Plants">Basket with Accent Plants</option> 
+                                    <option value="Individual">Individual</option> 
+                                    <option value="Other">Other</option> 
+                                </select>
+                            </td>
+                            <td class="col">
+                                <input type="text" class="form-control" name="otherPackaging">
+                            </td>
+                            <td class="col">
+                                <input type="submit" value="Add" class="btn btn-outline-success">
+                            </td>
+                        </form>
+                    </tr>
+                <% } %>
+            </tbody>
+                        
+        </table>
+        <div class="container mt-3 btn-group">
+            <a href="" class="btn btn-outline-secondary">Search for Favorite Flowers</a>
+            <a href="" class="btn btn-outline-success">Done</a>
+            
         </div>
     </div>
-
-
+                        
 <%- include('../partials/footer') %>
