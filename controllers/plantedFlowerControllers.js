@@ -55,6 +55,51 @@ router.post('/containers/:id/plantedFlowers', (req, res) => {
         });
 });
 
+// PUT /plantedFlowers/:id
+// Update planted flowers and redirect to container show page
+router.put('/plantedFlowers/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific planted flower
+    const plantedFlowerId = req.params.id;
+    let containerId;
+
+    // Find the garden in the database
+    Garden.findOne( { 'sections.containers.plantedFlowers._id' : plantedFlowerId })
+        .then(foundGarden => {
+            // Determine if logged in user is authorized to update planted flower (that is, are they the owner of the garden)
+            if (foundGarden.owner == userId) {
+                // Get the section and container
+                const parents = ControllerHelper.getPlantedFlowerParentsFromGarden(foundGarden, plantedFlowerId);
+                const section = parents.section;
+                const container = parents.container;
+                containerId = container.id;
+                const plantedFlowerSubdoc = container.plantedFlowers.id(plantedFlowerId);
+
+                // Update the plantedflower with the new values from req.body
+                plantedFlowerSubdoc.flower = req.body.flower;
+                plantedFlowerSubdoc.qty = req.body.qty;
+                plantedFlowerSubdoc.packaging = req.body.packaging;
+                plantedFlowerSubdoc.otherPackaging = req.body.otherPackaging;
+                
+                // Save the garden
+                return foundGarden.save();
+
+            } else {
+                throw new Error('You are Not Authorized to Update this Garden.');
+            }
+        })
+        .then(updatedGarden => {
+            // Redirect to container show page
+            res.redirect(`/containers/${containerId}`);
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/

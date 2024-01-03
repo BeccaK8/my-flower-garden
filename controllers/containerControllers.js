@@ -51,7 +51,7 @@ router.get('/containers/:id/edit', (req, res) => {
     Garden.findOne( {'sections.containers._id' : containerId})
         .then(foundGarden => {
             // Get section and container
-            const foundSection = ControllerHelper.getContainerSectionFromGarden(foundGarden, containerId);
+            const foundSection = ControllerHelper.getContainerParentsFromGarden(foundGarden, containerId).section;
             const foundContainer = foundSection.containers.id(containerId);
 
             // Render delete confirmation screen 
@@ -76,7 +76,7 @@ router.get('/containers/:id/delete', (req, res) => {
     Garden.findOne( {'sections.containers._id' : containerId})
         .then(foundGarden => {
             // Get section
-            const foundSection = ControllerHelper.getContainerSectionFromGarden(foundGarden, containerId);
+            const foundSection = ControllerHelper.getContainerParentsFromGarden(foundGarden, containerId).section;
             const foundContainer = foundSection.containers.id(containerId);
 
             // Render delete confirmation screen 
@@ -137,7 +137,7 @@ router.put('/containers/:id', (req, res) => {
             // Determine if logged in user is authorized to update it (that is, are they the owner of the garden)
             if (foundGarden.owner == userId) {
                 // If authorized, find the section subdoc
-                const section = ControllerHelper.getContainerSectionFromGarden(foundGarden, containerId);
+                const section = ControllerHelper.getContainerParentsFromGarden(foundGarden, containerId).section;
                 const containerSubdoc = section.containers.id(containerId);
                 sectionId = section.id;
 
@@ -216,7 +216,7 @@ router.get('/containers/:id', (req, res) => {
         .then(foundGarden => {
             // Get section
             garden = foundGarden;
-            section = ControllerHelper.getContainerSectionFromGarden(foundGarden, containerId);
+            section = ControllerHelper.getContainerParentsFromGarden(foundGarden, containerId).section;
             container = section.containers.id(containerId);
 
             // Get Logged In User's favorite flowers
