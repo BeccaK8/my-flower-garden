@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+    <div class="container mt-3">
+        <h2><%= garden.name %> > <%= section.name %> > <%= container.name %></h2>
+        <h3><%= plantedFlower.flower.myFlowerName %> - <%= plantedFlower.qty %> <%= plantedFlower.packaging %></h3>
+
+        <% if (loggedIn && garden.owner == userId) { %>
+            <h4>Are you sure you would like to delete this planted flower from the container?</h4>
+            <div class="btn-group">
+                <a href="/containers/<%= container.id %>" class="btn btn-outline-warning me-3">Cancel</a>
+                <form action="/plantedFlowers/<%= plantedFlower.id %>?_method=DELETE" method="post">
+                    <input type="submit" class="btn btn-outline-danger me-3" value="Delete Planted Flower">
+                </form>
+            </div>
+        <% } else { %>
+            <h4>You are not authorized to delete from this container.</h4>
+            <a href="/gardens" class="btn btn-outline-primary me-3">Return to My Gardens</a>
+        <% } %>
+
+    </div>
+
+<%- include('../partials/footer') %>

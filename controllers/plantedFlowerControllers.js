@@ -100,6 +100,36 @@ router.put('/plantedFlowers/:id', (req, res) => {
         });
 });
 
+// GET /plantedFlowers/:id/delete
+// Render the delete Planted Flower form
+router.get('/plantedFlowers/:id/delete', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+    
+    const plantedFlowerId = req.params.id;
+    
+    // Find garden using container Id
+    Garden.findOne( { 'sections.containers.plantedFlowers._id' : plantedFlowerId })
+        .populate( { path: 'sections.containers.plantedFlowers.flower' } )
+        .then(foundGarden => {
+            // Get section
+            const parents = ControllerHelper.getPlantedFlowerParentsFromGarden(foundGarden, plantedFlowerId);
+            const plantedFlower = parents.container.plantedFlowers.id(plantedFlowerId);
+
+            // Render delete confirmation screen 
+            res.render('plantedFlowers/delete', { 
+                garden: foundGarden, 
+                section: parents.section, 
+                container: parents.container, 
+                plantedFlower,
+                username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
 /*******************************************/
 /*****          Export Router          *****/
 /*******************************************/
