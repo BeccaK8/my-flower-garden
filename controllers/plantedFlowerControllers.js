@@ -25,21 +25,25 @@ router.post('/containers/:id/plantedFlowers', (req, res) => {
     // Target specific container
     const containerId = req.params.id;
 
-    // Find the garden in the database
-    Garden.findOne( { 'sections.containers._id' : containerId })
+    // Make sure they picked a flower to add to the container (and didn't just leave the instructions option)
+    if (req.body.flower) {
+        // They selected a flower so we can proceed with adding new flower
+        
+        // Find the garden in the database
+        Garden.findOne( { 'sections.containers._id' : containerId })
         .then(foundGarden => {
             // Determine if logged in user is authorized to add planted flower (that is, are they the owner of the garden)
             if (foundGarden.owner == userId) {
                 // Get the section and container
                 const section = ControllerHelper.getContainerParentsFromGarden(foundGarden, containerId).section;
                 const container = section.containers.id(containerId);
-
+                
                 // Push the new plantedflower (in req.body) onto the container.plantedFlowers array
                 container.plantedFlowers.push(req.body);
                 
                 // Save the garden
                 return foundGarden.save();
-
+                
             } else {
                 throw new Error('You are Not Authorized to Update this Garden.');
             }
@@ -53,6 +57,12 @@ router.post('/containers/:id/plantedFlowers', (req, res) => {
             console.log(err);
             res.redirect(`/error?error=${err}`);
         });
+    } else {
+        // If they forgot to pick a flower, 
+        // Redirect to container show page
+        res.redirect(`/containers/${containerId}`);
+    }
+    
 });
 
 // PUT /plantedFlowers/:id

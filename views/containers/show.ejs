@@ -26,16 +26,16 @@
                             <tr class="row mt-2 p-2">
                                 <td class="col">
                                     <select name="flower" class="form-control">
-                                            <option value="">Pick your favorite flower... **</option>
+                                            <option value="" disabled>Pick your favorite flower... **</option>
                                         <% myFavoriteFlowers.forEach(mff => { %>
                                             <option value="<%= mff.id %>" <%= (pf.flower.id == mff.id) ? 'selected' : '' %>><%= mff.myFlowerName %></option> 
                                         <% }); %>
                                     </select>
                                 </td>
-                                <td class="col"><input type="text" name="qty" value="<%= pf.qty %>" class="form-control"></td>
+                                <td class="col"><input type="text" name="qty" value="<%= pf.qty %>" class="form-control" pattern="\d*"></td>
                                 <td class="col">                        
                                     <select name="packaging" class="form-control">
-                                        <option value="">Select flower packaging...</option> 
+                                        <option value="" disabled>Select flower packaging...</option> 
                                         <option value="Basket" <%= pf.packaging === 'Basket' ? 'selected' : '' %>>Basket</option> 
                                         <option value="Basket with Accent Plants" <%= pf.packaging === 'Basket with Accent Plants' ? 'selected' : '' %>>Basket with Accent Plants</option> 
                                         <option value="Individual" <%= pf.packaging === 'Individual' ? 'selected' : '' %>>Individual</option> 
@@ -58,18 +58,18 @@
                     <tr class="row p-2">
                         <form action="/containers/<%= container.id %>/plantedFlowers" method="post">
                             <td class="col">
-                                <select name="flower" class="form-control">
-                                        <option value="" selected>Pick your favorite flower... **</option>
+                                <select name="flower" class="form-control" required>
+                                        <option value="">Pick your favorite flower... **</option>
                                     <% myFavoriteFlowers.forEach(mff => { %>
                                         <option value="<%= mff.id %>"><%= mff.myFlowerName %></option> 
                                     <% }); %>
                                 </select>
                             </td>
                             <td class="col">
-                                <input type="text" class="form-control" name="qty" placeholder="number needed">
+                                <input type="text" class="form-control" name="qty" placeholder="number needed" required pattern="\d*">
                             </td>
                             <td class="col">                        
-                                <select name="packaging" class="form-control">
+                                <select name="packaging" class="form-control" required>
                                     <option value="">Select flower packaging...</option> 
                                     <option value="Basket">Basket</option> 
                                     <option value="Basket with Accent Plants">Basket with Accent Plants</option> 
