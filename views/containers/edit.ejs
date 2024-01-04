@@ -24,10 +24,10 @@
 
                 <div class="mb-3 input-group align-items-center">
                     <label for="qty" class="form-label me-2">Quantity:</label>
-                    <input type="text" name="qty" id="" class="form-control me-3" value="<%= container.qty %>">
+                    <input type="text" name="qty" id="" class="form-control me-3" value="<%= container.qty %>" pattern="\d*">
 
                     <label for="linerQty" class="form-label me-2 align-middle">Liner Quantity:</label>
-                    <input type="text" name="linerQty" id="" class="form-control" value="<%= container.linerQty %>">
+                    <input type="text" name="linerQty" id="" class="form-control" value="<%= container.linerQty %>" pattern="\d*">
                 </div>
                 
                 <div class="mb-3">
