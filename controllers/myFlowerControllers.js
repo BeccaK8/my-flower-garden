@@ -105,9 +105,9 @@ router.get('/', (req, res) => {
         });
 });
 
-// GET /myFlowers/delete/:id
+// GET /myFlowers/:id/delete
 // Show delete confirmation page
-router.get('/delete/:id', (req, res) => {
+router.get('/:id/delete', (req, res) => {
     const { username, loggedIn, userId } = req.session;
 
     const myFlowerId = req.params.id;
@@ -147,6 +147,60 @@ router.delete('/:id', (req, res) => {
             }
         })
         .then(deletedFavorite => {
+            // Redirect to My Favorite Flowers
+            res.redirect('/myFlowers')
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
+// GET /myFlowers/:id/edit
+// Show edit myflower form page
+router.get('/:id/edit', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    const myFlowerId = req.params.id;
+
+    // Find my favorite flower using req.params.id
+    MyFlower.findById(myFlowerId)
+        .then(myFlower => {
+            // Render delete confirmation screen 
+            res.render('myFlowers/edit', { myFlower, username, loggedIn, userId });
+        })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
+});
+
+// PUT -> /myFlowers/:id
+// Update favorite flower
+// Only available to authorized users
+router.put('/:id', (req, res) => {
+    const { username, loggedIn, userId } = req.session;
+
+    // Target specific favorite
+    const myFlowerId = req.params.id;
+
+    // Find it in the database
+    MyFlower.findById(myFlowerId)
+        .then(foundFavorite => {
+            // Determine if logged in user is authorized to delete it (that is, are they the owner of the garden)
+            if (foundFavorite.owner == userId) {
+                // If authorized, update fields and save favorite
+                foundFavorite.myFlowerName = req.body.myFlowerName;
+
+                return foundFavorite.save();
+            } else {
+                // If not authorized, redirect to error page
+                throw new Error('You Not Authorized to Update this Favorite.');
+            }
+        })
+        .then(updatedFavorite => {
             // Redirect to My Favorite Flowers
             res.redirect('/myFlowers')
         })
