@@ -9,9 +9,9 @@
         <% } else { %>
             <h4>Are you sure you would like to delete this section?</h4>
             <div class="btn-group">
-                <a href="/gardens/<%= garden.id %>" class="btn btn-warning me-3">Cancel</a>
+                <a href="/gardens/<%= garden.id %>" class="btn btn-outline-warning me-3">Cancel</a>
                 <form action="/sections/<%= section.id %>?_method=DELETE" method="post">
-                    <input type="submit" class="btn btn-danger me-3" value="Delete Section">
+                    <input type="submit" class="btn btn-outline-danger me-3" value="Delete Section">
                 </form>
             </div>
         <% } %>

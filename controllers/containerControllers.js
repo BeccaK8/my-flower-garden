@@ -3,8 +3,8 @@
 /*******************************************/
 const express = require('express');
 const Garden = require('../models/garden');
-const ControllerHelper = require('../utils/controllerHelper');
 const MyFlower = require('../models/myFlower');
+const ControllerHelper = require('../utils/controllerHelper');
 
 /*******************************************/
 /*****          Create Router          *****/
@@ -97,6 +97,7 @@ router.delete('/containers/:id', (req, res) => {
 
     // Target specific container
     const containerId = req.params.id;
+    let sectionId;
 
     // Find the garden with that container Id in the database
     Garden.findOne( {'sections.containers._id' : containerId})
@@ -106,9 +107,12 @@ router.delete('/containers/:id', (req, res) => {
 
             // Determine if logged in user is authorized to update it (that is, are they the owner of the garden)
             if (foundGarden.owner == userId) {
+                const section = ControllerHelper.getContainerParentsFromGarden(foundGarden, containerId).section;
+                sectionId = section.id;
                 // If authorized, remove the container subdoc from the correct section sub doc 
-                foundGarden.sections.forEach(section => section.containers.remove(containerId));
-                
+                //foundGarden.sections.forEach(section => section.containers.remove(containerId));
+                section.containers.remove(containerId);
+
                 // Save the garden
                 return foundGarden.save();
             } else {
@@ -118,8 +122,13 @@ router.delete('/containers/:id', (req, res) => {
         })
         .then(returnedGarden => {
             // Redirect to My Gardens
-            res.redirect(`/gardens/${returnedGarden.id}`);
+            res.redirect(`/sections/${sectionId}`);
         })
+        .catch(err => {
+            // Handle any errors
+            console.log(err);
+            res.redirect(`/error?error=${err}`);
+        });
 });
 
 // PUT /containers/:id
