@@ -2,6 +2,44 @@
 
 <div class="container mt-3">
     <h1>Welcome to My Flower Garden!</h1>
+    <p class="lead">Plan, organize, and manage your garden wherever it may be...</p>
+
+    <div class="d-flex">
+        <div class="vr"></div>
+        <div class="ms-3">
+            Get started by:
+            <% if (loggedIn) { %>
+                <div class="container row inline-block text-center mt-3">
+
+                    <div class="col-lg-4">
+                        <a href="/gardens" class="nav-link"><img src="/images/gardens/icon_00.png" alt="" class="home-icon"><br>✿&nbsp;View&nbsp;Your&nbsp;Gardens&nbsp;✿</a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="/myFlowers/search" class="nav-link"><img src="/images/gardens/icon_01.png" alt="" class="home-icon"><br>✿&nbsp;Search&nbsp;for&nbsp;Flowers&nbsp;✿</a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="/myFlowers" class="nav-link"><img src="/images/gardens/icon_11.png" alt="" class="home-icon"><br>✿&nbsp;Review&nbsp;Favorites&nbsp;✿</a>
+                    </div>
+                </div>
+
+            <% } else { %>
+                <div class="container row inline-block text-center mt-3">
+
+                    <div class="col-lg-4">
+                        <a href="/users/login" class="nav-link"><img src="/images/gardens/icon_00.png" alt="" class="home-icon"><br>✿&nbsp;Log&nbsp;In&nbsp;✿</a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="/users/signup" class="nav-link"><img src="/images/gardens/icon_01.png" alt="" class="home-icon"><br>✿&nbsp;Sign&nbsp;Up&nbsp;✿</a>
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="/myFlowers/search" class="nav-link"><img src="/images/gardens/icon_11.png" alt="" class="home-icon"><br>✿&nbsp;Flower&nbsp;Search&nbsp;✿</a>
+                    </div>
+                </div>              
+            <% } %>
+        </div>
+    </div>
+
+
 </div>
 
 <%- include('./partials/footer') %>
