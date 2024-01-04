@@ -15,7 +15,7 @@ body {
 }
 
 .garden-icon-show {
-    width: 10%;
+    width: 7%;
 }
 
 .garden-icon-radio {
@@ -45,4 +45,10 @@ body {
 
 .home-icon {
     height: 125px;
+}
+
+.arrow-icon {
+    height: 20px;
+    vertical-align: middle;
+    top: 4;
 }
