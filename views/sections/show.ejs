@@ -12,6 +12,7 @@
         <table class="table table-hover table-striped align-middle">
             <thead>
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col" class="">Name</th>
                     <th scope="col" class="">Location</th>
                     <th scope="col" class="text-center">Quantity</th>
@@ -32,7 +33,10 @@
                     }); %>
                     <% section.containers.forEach(c => { %>
                         <tr>
-                            <td><a data-bs-toggle="collapse" href="#collapse-<%= c.id %>"><%= c.name %></a></td>
+                            <td>
+                                <a data-bs-toggle="collapse" href="#collapse-<%= c.id %>"><img src="/images/gardens/pansy.png" class="collapse-icon" alt="Expand for Flowers"></a>
+                            </td>
+                            <td><%= c.name %></td>
                             <td><%= c.location %></td>
                             <td class="text-center"><%= c.qty %></td>
                             <td class="text-center"><%= c.linerQty %></td>
@@ -46,7 +50,7 @@
                             </td>
                         </tr>
                         <tr class="collapse" id="collapse-<%= c.id %>">
-                            <td colspan="5">
+                            <td colspan="6">
                                 <table>
                                     <thead>
                                         <tr>
