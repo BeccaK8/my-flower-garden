@@ -9,7 +9,7 @@
     <hr>
     <div class="container mt-3">
         <h3>Containers</h3>
-        <table class="table table-hover table-striped align-middle">
+        <table class="table table-hover align-middle">
             <thead>
                 <tr>
                     <th scope="col"></th>
@@ -17,9 +17,7 @@
                     <th scope="col" class="">Location</th>
                     <th scope="col" class="text-center">Quantity</th>
                     <th scope="col" class="text-center">Liner Quantity</th>
-                    <!-- <th scope="col" class="">Active</th> -->
                     <th scope="col" class="text-center">Actions</th>
-                    <!-- <th scope="col" class="text-center">Delete</th> -->
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -42,7 +40,6 @@
                             <td><%= c.location %></td>
                             <td class="text-center"><%= c.qty %></td>
                             <td class="text-center"><%= c.linerQty %></td>
-                            <!-- <td><%= c.active ? 'Y' : 'N' %></td> -->
                             <td class="text-center">
                                 <div class="btn-group">
                                     <a href="/containers/<%= c.id %>" class="btn btn-outline-success">Manage Flowers</a>
@@ -53,8 +50,8 @@
                         </tr>
                         <% if (c.plantedFlowers && c.plantedFlowers.length > 0) { %>
                             <tr class="collapse" id="collapse-<%= c.id %>">
-                                <td></td>
-                                <td colspan="5">
+                                <td class=" bg-danger-subtle"></td>
+                                <td colspan="5" class=" bg-warning-subtle">
                                     <table width="100%" class="ms-3 me-3">
                                         <thead>
                                             <tr>
