@@ -34,7 +34,9 @@
                     <% section.containers.forEach(c => { %>
                         <tr>
                             <td>
-                                <a data-bs-toggle="collapse" href="#collapse-<%= c.id %>"><img src="/images/gardens/pansy.png" class="collapse-icon" alt="Expand for Flowers"></a>
+                                <% if (c.plantedFlowers && c.plantedFlowers.length > 0) { %>
+                                    <a data-bs-toggle="collapse" href="#collapse-<%= c.id %>"><img src="/images/gardens/pansy.png" class="collapse-icon" alt="Expand for Flowers"></a>
+                                <% } %>
                             </td>
                             <td><%= c.name %></td>
                             <td><%= c.location %></td>
@@ -49,30 +51,32 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr class="collapse" id="collapse-<%= c.id %>">
-                            <td colspan="6">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Flower</th>
-                                            <th scope="col">Quantity</th>
-                                            <th scope="col">Packaging</th>
-                                            <th scope="col">Other Packaging</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <% c.plantedFlowers.forEach(pf => { %>
-                                        <tr>
-                                            <td scope="col"><%= pf.flower.myFlowerName %></td>
-                                            <td scope="col"><%= pf.qty %></td>
-                                            <td scope="col"><%= pf.packaging %></td>
-                                            <td scope="col"><%= pf.otherPackaging %></td>
-                                        </tr>
-                                        <% }); %>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
+                        <% if (c.plantedFlowers && c.plantedFlowers.length > 0) { %>
+                            <tr class="collapse" id="collapse-<%= c.id %>">
+                                <td colspan="6">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Flower</th>
+                                                <th scope="col">Quantity</th>
+                                                <th scope="col">Packaging</th>
+                                                <th scope="col">Other Packaging</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% c.plantedFlowers.forEach(pf => { %>
+                                            <tr>
+                                                <td scope="col"><%= pf.flower.myFlowerName %></td>
+                                                <td scope="col"><%= pf.qty %></td>
+                                                <td scope="col"><%= pf.packaging %></td>
+                                                <td scope="col"><%= pf.otherPackaging %></td>
+                                            </tr>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        <% } %>
                     <% }); %>
                 <% } else { %>
                     <tr>
