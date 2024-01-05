@@ -3,8 +3,8 @@
 /*******************************************/
 const express = require('express');
 const Garden = require('../models/garden');
-const ControllerHelper = require('../utils/controllerHelper');
 const MyFlower = require('../models/myFlower');
+const ControllerHelper = require('../utils/controllerHelper');
 
 /*******************************************/
 /*****          Create Router          *****/
@@ -229,6 +229,7 @@ router.get('/containers/:id', (req, res) => {
                 section, 
                 container, 
                 myFavoriteFlowers: foundFavorites, 
+                comparePlantedFlowers: ControllerHelper.comparePlantedFlowers,
                 username, loggedIn, userId
             });
         })

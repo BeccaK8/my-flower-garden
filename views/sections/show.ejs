@@ -65,6 +65,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <% c.plantedFlowers.sort(comparePlantedFlowers); %>
                                             <% c.plantedFlowers.forEach(pf => { %>
                                             <tr>
                                                 <td scope="col"><%= pf.flower.myFlowerName %></td>

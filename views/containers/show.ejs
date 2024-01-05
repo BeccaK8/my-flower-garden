@@ -22,7 +22,6 @@
 
                 <% if (container.plantedFlowers && container.plantedFlowers.length > 0) { %>
                     <% container.plantedFlowers.sort(comparePlantedFlowers); %>
-
                     <% container.plantedFlowers.forEach(pf => { %>
                         <form action="/plantedFlowers/<%= pf.id %>?_method=PUT" method="post">
                             <tr class="row mt-2 p-2">
