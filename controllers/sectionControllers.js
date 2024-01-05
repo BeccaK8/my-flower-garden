@@ -176,6 +176,7 @@ router.get('/sections/:id', (req, res) => {
 
     // Find the garden with that section Id in the database
     Garden.findOne( {'sections._id' : sectionId})
+        .populate( { path: 'sections.containers.plantedFlowers.flower' } )
         .then(foundGarden => {
             // Get section
             const section = foundGarden.sections.id(sectionId);
