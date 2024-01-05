@@ -42,7 +42,13 @@
                             <td class="text-center"><%= c.linerQty %></td>
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="/containers/<%= c.id %>" class="btn btn-outline-success">Manage Flowers</a>
+                                    <a href="/containers/<%= c.id %>" class="btn btn-outline-success">
+                                        <% if (c.plantedFlowers && c.plantedFlowers.length > 0) { %>
+                                            Manage Flowers
+                                        <% } else { %>
+                                            &nbsp;&nbsp;&nbsp;Add Flowers&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <% } %>
+                                    </a>
                                     <a href="/containers/<%= c.id %>/edit" class="btn btn-outline-warning">Update</a>
                                     <a href="/containers/<%= c.id %>/delete" class="btn btn-outline-danger">Delete</a>
                                 </div>
