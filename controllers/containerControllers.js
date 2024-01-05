@@ -238,6 +238,7 @@ router.get('/containers/:id', (req, res) => {
                 section, 
                 container, 
                 myFavoriteFlowers: foundFavorites, 
+                comparePlantedFlowers: ControllerHelper.comparePlantedFlowers,
                 username, loggedIn, userId
             });
         })

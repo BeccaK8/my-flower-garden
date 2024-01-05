@@ -47,8 +47,6 @@ body {
     height: 125px;
 }
 
-.arrow-icon {
-    height: 20px;
-    vertical-align: middle;
-    top: 4;
+.collapse-icon {
+    height: 25px;
 }
