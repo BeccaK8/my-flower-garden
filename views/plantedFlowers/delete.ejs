@@ -1,8 +1,8 @@
 <%- include('../partials/header') %>
 
     <div class="container mt-3">
-        <h2><%= garden.name %> > <%= section.name %> > <%= container.name %></h2>
-        <h3><%= plantedFlower.flower.myFlowerName %> - <%= plantedFlower.qty %> <%= plantedFlower.packaging %></h3>
+        <h2><%= garden.name %> » <%= section.name %> » <%= container.name %></h2>
+        <h3><%= plantedFlower.flower.myFlowerName %> » <%= plantedFlower.packaging %> - Quantity: <%= plantedFlower.qty %> </h3>
 
         <% if (loggedIn && garden.owner == userId) { %>
             <h4>Are you sure you would like to delete this planted flower from the container?</h4>

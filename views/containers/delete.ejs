@@ -1,10 +1,10 @@
 <%- include('../partials/header') %>
 
     <div class="container mt-3">
-        <h2><%= garden.name %> > <%= section.name %> > <%= container.name %></h2>
+        <h2><%= garden.name %> » <%= section.name %> » <%= container.name %></h2>
 
         <% if (loggedIn && garden.owner == userId) { %>
-            <h4>Are you sure you would like to delete this section?</h4>
+            <h4>Are you sure you would like to delete this container?</h4>
             <div class="btn-group">
                 <a href="/sections/<%= section.id %>" class="btn btn-outline-warning me-3">Cancel</a>
                 <form action="/containers/<%= container.id %>?_method=DELETE" method="post">

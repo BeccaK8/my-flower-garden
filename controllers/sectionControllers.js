@@ -3,6 +3,7 @@
 /*******************************************/
 const express = require('express');
 const Garden = require('../models/garden');
+const ControllerHelper = require('../utils/controllerHelper');
 
 /*******************************************/
 /*****          Create Router          *****/
@@ -61,7 +62,12 @@ router.get('/sections/:id/edit', (req, res) => {
             // Get section
             const section = foundGarden.sections.id(sectionId);
             // Render edit page
-            res.render('sections/edit', { section, gardenId: foundGarden.id, username, loggedIn, userId });
+            res.render('sections/edit', { 
+                section, 
+                garden: foundGarden, 
+                gardenId: foundGarden.id, 
+                username, loggedIn, userId 
+            });
         })
         .catch(err => {
             // Handle any errors
@@ -176,11 +182,16 @@ router.get('/sections/:id', (req, res) => {
 
     // Find the garden with that section Id in the database
     Garden.findOne( {'sections._id' : sectionId})
+        .populate( { path: 'sections.containers.plantedFlowers.flower' } )
         .then(foundGarden => {
             // Get section
             const section = foundGarden.sections.id(sectionId);
             // Render edit page
-            res.render('sections/show', { section, garden: foundGarden, username, loggedIn, userId });
+            res.render('sections/show', { 
+                section, 
+                garden: foundGarden, 
+                comparePlantedFlowers: ControllerHelper.comparePlantedFlowers,
+                username, loggedIn, userId });
         })
         .catch(err => {
             // Handle any errors

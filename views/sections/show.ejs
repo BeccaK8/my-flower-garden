@@ -3,22 +3,20 @@
     <div class="container mt-3">
         <img src="/images/gardens/<%= garden.icon ? garden.icon : 'icon_00.png' %>" alt="garden icon" class="img-thumbnail float-end mt-3 garden-icon-show">
         <h2><%= garden.name %></h2>
-        <h3><%= section.name %> </h3>
+        <h3>Section: <%= section.name %> </h3>
     </div>
-
-    <hr>
+    
     <div class="container mt-3">
         <h3>Containers</h3>
-        <table class="table table-hover table-striped align-middle">
+        <table class="table table-hover align-middle">
             <thead>
                 <tr>
+                    <th scope="col"></th>
                     <th scope="col" class="">Name</th>
                     <th scope="col" class="">Location</th>
                     <th scope="col" class="text-center">Quantity</th>
                     <th scope="col" class="text-center">Liner Quantity</th>
-                    <!-- <th scope="col" class="">Active</th> -->
                     <th scope="col" class="text-center">Actions</th>
-                    <!-- <th scope="col" class="text-center">Delete</th> -->
                 </tr>
             </thead>
             <tbody class="table-group-divider">
@@ -32,21 +30,57 @@
                     }); %>
                     <% section.containers.forEach(c => { %>
                         <tr>
+                            <td>
+                                <% if (c.plantedFlowers && c.plantedFlowers.length > 0) { %>
+                                    <a data-bs-toggle="collapse" href="#collapse-<%= c.id %>"><img src="/images/gardens/pansy.png" class="collapse-icon" alt="Expand for Flowers"></a>
+                                <% } %>
+                            </td>
                             <td><%= c.name %></td>
                             <td><%= c.location %></td>
                             <td class="text-center"><%= c.qty %></td>
                             <td class="text-center"><%= c.linerQty %></td>
-                            <!-- <td><%= c.active ? 'Y' : 'N' %></td> -->
                             <td class="text-center">
                                 <div class="btn-group">
-                                    <a href="/containers/<%= c.id %>" class="btn btn-outline-success">Manage Flowers</a>
+                                    <a href="/containers/<%= c.id %>" class="btn btn-outline-success">
+                                        <% if (c.plantedFlowers && c.plantedFlowers.length > 0) { %>
+                                            Manage Flowers
+                                        <% } else { %>
+                                            &nbsp;&nbsp;&nbsp;Add Flowers&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <% } %>
+                                    </a>
                                     <a href="/containers/<%= c.id %>/edit" class="btn btn-outline-warning">Update</a>
                                     <a href="/containers/<%= c.id %>/delete" class="btn btn-outline-danger">Delete</a>
                                 </div>
                             </td>
-
-                            <!-- <td class="text-center"><a href="/containers/<%= c.id %>/delete" class="btn btn-outline-danger">Delete</a></td> -->
                         </tr>
+                        <% if (c.plantedFlowers && c.plantedFlowers.length > 0) { %>
+                            <tr class="collapse" id="collapse-<%= c.id %>">
+                                <td class=" bg-danger-subtle"></td>
+                                <td colspan="5" class=" bg-warning-subtle">
+                                    <table width="100%" class="ms-3 me-3">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" width="30%">Flower</th>
+                                                <th scope="col" width="20%">Quantity</th>
+                                                <th scope="col" width="25%">Packaging</th>
+                                                <th scope="col" width="25%">Other Packaging</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <% c.plantedFlowers.sort(comparePlantedFlowers); %>
+                                            <% c.plantedFlowers.forEach(pf => { %>
+                                            <tr>
+                                                <td scope="col"><%= pf.flower.myFlowerName %></td>
+                                                <td scope="col"><%= pf.qty %></td>
+                                                <td scope="col"><%= pf.packaging %></td>
+                                                <td scope="col"><%= pf.otherPackaging %></td>
+                                            </tr>
+                                            <% }); %>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        <% } %>
                     <% }); %>
                 <% } else { %>
                     <tr>
