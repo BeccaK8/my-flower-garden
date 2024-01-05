@@ -62,7 +62,12 @@ router.get('/sections/:id/edit', (req, res) => {
             // Get section
             const section = foundGarden.sections.id(sectionId);
             // Render edit page
-            res.render('sections/edit', { section, gardenId: foundGarden.id, username, loggedIn, userId });
+            res.render('sections/edit', { 
+                section, 
+                garden: foundGarden, 
+                gardenId: foundGarden.id, 
+                username, loggedIn, userId 
+            });
         })
         .catch(err => {
             // Handle any errors
