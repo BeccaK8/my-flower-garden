@@ -20,6 +20,7 @@ As a user, I want to...
   - add a flower to a container with the preferred packaging and quantity.
   - delete a flower from a container.
   - associate multiple types of flower to the same container (e.g, petunias and spike).
+  - show an appropriate home page to someone who's not logged in.
 
 ## Wireframes
 
@@ -50,7 +51,6 @@ As a user, I want to...
   - upload photos of my containers.
   - inactivate a container so it does not appear on my shopping list.
   - filter container list by active/inactive.
-  - show an appropriate home page to someone who's not logged in.
   - change my password.
   - log in with Google.
   - see my errors better.
