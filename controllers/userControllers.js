@@ -36,7 +36,7 @@ router.post('/signup', async (req, res) => {
     User.create(newUser)
         .then(user => {
             // Redirect to Login
-            res.send(newUser);
+            res.redirect('/users/login');
         })
         .catch(err => {
             // Display Error if one occurs
