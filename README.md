@@ -16,6 +16,7 @@ As a user, I want to...
   - create a container for my planted flowers.
   - assign a container to a section in my garden.
   - set a quantity for my containers so I don't need to create four containers for all my tomato pots.
+  - update a container's name, quantity or liner quantity.
   - search for a flower from the plant API by partial name.
   - add a flower to a container with the preferred packaging and quantity.
   - delete a flower from a container.
